@@ -1,0 +1,12 @@
+boto3
+aws-sam-cli
+aws_xray_sdk
+aws-lambda-powertools
+opensearch-py
+crhelper
+pytest
+pytest-mock
+pytest-cov
+moto
+pycognito
+validators

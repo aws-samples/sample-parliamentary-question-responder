@@ -1,0 +1,11 @@
+{
+    "authConfig": {
+        "redirect_uri": "",
+        "authority": ""
+    },
+    "signOutConfig": {
+        "logout_uri": "",
+        "cognitoDomain": ""
+    },
+    "client_id": ""
+}
