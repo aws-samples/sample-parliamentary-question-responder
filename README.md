@@ -36,7 +36,7 @@ Once the sample is deployed [AWS Lambda](https://aws.amazon.com/lambda/) functio
 
 To access the frontend website, locate the SiteCloudFrontUrl value from the stack outputs (this is also displayed as the final output of the `gmake deploy` command) and paste this URL into your browser. When the page loads, click the **Sign In** button and then select the **Create an account** link to set up your user account. 
 
-After completing the account creation process, you can use the **Find similar questions** feature to search for previously asked questions and their responses, or use the ****Chat** feature to interact with the publications Knowledge Base and draft responses to parliamentary questions.
+After completing the account creation process, you can use the **Find similar questions** feature to search for previously asked questions and their responses, or use the **Chat** feature to interact with the publications Knowledge Base and draft responses to parliamentary questions.
 
 ## Useful Commands
 
