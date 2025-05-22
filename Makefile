@@ -104,9 +104,9 @@ delete-backend:
 create-frontend-config :
 	base_uri="http://localhost:3000"
 	stackOutputs=$$(aws cloudformation describe-stacks --stack-name $${stackName} --query 'Stacks[0].Outputs')
-	cognitoAuthority=$$(jq '.[] | select(.OutputKey | contains("CognitoProviderURL")).OutputValue' <<< $${stackOutputs} | tr -d '"')
-	cognitoDomain=$$(jq '.[] | select(.OutputKey | contains("CognitoUserPoolDomain")).OutputValue' <<< $${stackOutputs} | tr -d '"')
-	clientId=$$(jq '.[] | select(.OutputKey | contains("CognitoUserPoolClientId")).OutputValue' <<< $${stackOutputs} | tr -d '"')
+	cognitoAuthority=$$(jq -r '.[] | select(.OutputKey == "CognitoProviderURL").OutputValue' <<< $${stackOutputs})
+	cognitoDomain=$$(jq -r '.[] | select(.OutputKey == "CognitoUserPoolDomain").OutputValue' <<< $${stackOutputs})
+	clientId=$$(jq -r '.[] | select(.OutputKey == "CognitoUserPoolClientId").OutputValue' <<< $${stackOutputs})
 
 	jq -n \
 		--arg redirect_uri "$${base_uri}" \
