@@ -1745,6 +1745,7 @@ Resources:
       CodeUri: ./functions/save_question
       Description: Save Questions to S3 from the SQS queue, retrieve the full question from the Parliament API if the question or answer is not complete
       ReservedConcurrentExecutions: 2
+      Timeout: 30
       LoggingConfig:
         LogGroup: !Ref SaveQuestionFunctionLogGroup
       Layers:
