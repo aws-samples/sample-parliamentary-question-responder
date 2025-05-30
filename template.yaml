@@ -1840,6 +1840,7 @@ Resources:
         deadLetterTargetArn: !GetAtt QuestionDLQQueue.Arn
         maxReceiveCount: 3
       KmsMasterKeyId: !Ref EncryptionKeyAlias
+      VisibilityTimeout: 180
 
   QuestionDLQQueue:
     DeletionPolicy: Delete
