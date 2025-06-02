@@ -1,0 +1,327 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Parliamentary Question Responder – Documentation</title>
+    <link>//localhost:1313/docs/</link>
+    <description>Recent content in Documentation on Parliamentary Question Responder</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    
+	  <atom:link href="//localhost:1313/docs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Business Context</title>
+      <link>//localhost:1313/docs/business-context/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/docs/business-context/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;What is a Parliamentary Question?&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;what-is-a-parliamentary-question&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#what-is-a-parliamentary-question&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Parliamentary Questions are a fundamental mechanism for accountability in parliamentary systems. They allow elected representatives to formally question government ministers about policies, decisions, and actions.&lt;/p&gt;
+&lt;h2&gt;The Challenge&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;the-challenge&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#the-challenge&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Government departments face significant challenges when handling PQs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Volume&lt;/strong&gt;: In the UK alone, approximately 40,000 parliamentary questions are asked annually.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Resource intensive&lt;/strong&gt;: Each PQ requires research, drafting, fact-checking, and multiple approval stages&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Expertise required&lt;/strong&gt;: Responses must align with official policy positions, be factually accurate, and maintain appropriate tone&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Time-sensitive&lt;/strong&gt;: Departments typically have strict deadlines (often 24-48 hours) to provide comprehensive responses&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Current processes are labor-intensive, with each question requiring hours of civil servant time and sometimes coordination across multiple departments. Automating part of this process could significantly contribute to productivity and efficiency savings.&lt;/p&gt;
+&lt;h2&gt;Our Solution&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;our-solution&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#our-solution&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The Parliamentary Question Responder streamlines this process through the following features.
+&lt;br&gt;&lt;/br&gt;
+&lt;div
+  class=&#34;hextra-feature-grid hx-grid sm:max-lg:hx-grid-cols-2 max-sm:hx-grid-cols-1 hx-gap-4 hx-w-full not-prose&#34;
+  style=&#34;--hextra-feature-grid-cols: 2; &#34;
+&gt;
+  
+	&lt;a
+	  
+	  
+	  class=&#34; hextra-feature-card not-prose hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient&#34;
+	&gt;
+	  &lt;div class=&#34;hx-relative hx-w-full hx-p-6&#34;&gt;
+	    &lt;h3 class=&#34;hx-text-2xl hx-font-medium hx-leading-6 hx-mb-2 hx-flex hx-items-center&#34;&gt;
+	      &lt;span&gt;Intelligent similarity matching&lt;/span&gt;
+	    &lt;/h3&gt;
+	    &lt;p class=&#34;hx-text-gray-500 dark:hx-text-gray-400 hx-text-sm hx-leading-6&#34;&gt;Identifies previous similar questions and their approved answers&lt;/p&gt;
+	  &lt;/div&gt;&lt;/a&gt;
+
+	&lt;a
+	  
+	  
+	  class=&#34; hextra-feature-card not-prose hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient&#34;
+	&gt;
+	  &lt;div class=&#34;hx-relative hx-w-full hx-p-6&#34;&gt;
+	    &lt;h3 class=&#34;hx-text-2xl hx-font-medium hx-leading-6 hx-mb-2 hx-flex hx-items-center&#34;&gt;
+	      &lt;span&gt;AI-powered drafting&lt;/span&gt;
+	    &lt;/h3&gt;
+	    &lt;p class=&#34;hx-text-gray-500 dark:hx-text-gray-400 hx-text-sm hx-leading-6&#34;&gt;Generates draft responses using official parliamentary documents&lt;/p&gt;
+	  &lt;/div&gt;&lt;/a&gt;
+
+  &lt;a
+    
+    
+    class=&#34; hextra-feature-card not-prose hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient&#34;
+  &gt;
+    &lt;div class=&#34;hx-relative hx-w-full hx-p-6&#34;&gt;
+      &lt;h3 class=&#34;hx-text-2xl hx-font-medium hx-leading-6 hx-mb-2 hx-flex hx-items-center&#34;&gt;
+        &lt;span&gt;Human-in-the-loop verification&lt;/span&gt;
+      &lt;/h3&gt;
+      &lt;p class=&#34;hx-text-gray-500 dark:hx-text-gray-400 hx-text-sm hx-leading-6&#34;&gt;Ensures analysts maintain complete control of the review, verification, and refinement process, with citations to source documents providing transparency and building trust in AI-generated content&lt;/p&gt;
+    &lt;/div&gt;&lt;/a&gt;
+
+  &lt;a
+    
+    
+    class=&#34; hextra-feature-card not-prose hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient&#34;
+  &gt;
+    &lt;div class=&#34;hx-relative hx-w-full hx-p-6&#34;&gt;
+      &lt;h3 class=&#34;hx-text-2xl hx-font-medium hx-leading-6 hx-mb-2 hx-flex hx-items-center&#34;&gt;
+        &lt;span&gt;Integration with government data sources&lt;/span&gt;
+      &lt;/h3&gt;
+      &lt;p class=&#34;hx-text-gray-500 dark:hx-text-gray-400 hx-text-sm hx-leading-6&#34;&gt;Connects with existing official document repositories and information systems to extract the most current official publications&lt;/p&gt;
+    &lt;/div&gt;&lt;/a&gt;
+
+  &lt;a
+    
+    
+    class=&#34; hextra-feature-card not-prose hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient&#34;
+  &gt;
+    &lt;div class=&#34;hx-relative hx-w-full hx-p-6&#34;&gt;
+      &lt;h3 class=&#34;hx-text-2xl hx-font-medium hx-leading-6 hx-mb-2 hx-flex hx-items-center&#34;&gt;
+        &lt;span&gt;API-based architecture&lt;/span&gt;
+      &lt;/h3&gt;
+      &lt;p class=&#34;hx-text-gray-500 dark:hx-text-gray-400 hx-text-sm hx-leading-6&#34;&gt;Designed for easy integration with existing government workflow solutions and case management systems, minimizing disruption to established processes&lt;/p&gt;
+    &lt;/div&gt;&lt;/a&gt;
+
+
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;h2&gt;Benefits&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;benefits&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#benefits&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Time savings&lt;/strong&gt;: reduction in time spent answering questions.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Resource optimization&lt;/strong&gt;: Frees resources to focus on more complex policy work.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Consistency&lt;/strong&gt;: Ensures alignment with previous positions and current policy across all responses.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cost efficiency&lt;/strong&gt;: reduction in operational costs by automating research and drafting processes that currently consume thousands of staff hours annually.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Getting Started&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;getting-started&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#getting-started&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Ready to transform how your department handles parliamentary questions? Follow our installation guide to deploy this sample in your environment.&lt;/p&gt;
+&lt;div class=&#34;hextra-cards hx-mt-4 hx-gap-4 hx-grid not-prose&#34; style=&#34;--hextra-cards-grid-cols: 3;&#34;&gt;
+  &lt;a
+    class=&#34;hextra-card hx-group hx-flex hx-flex-col hx-justify-start hx-overflow-hidden hx-rounded-lg hx-border hx-border-gray-200 hx-text-current hx-no-underline dark:hx-shadow-none hover:hx-shadow-gray-100 dark:hover:hx-shadow-none hx-shadow-gray-100 active:hx-shadow-sm active:hx-shadow-gray-200 hx-transition-all hx-duration-200 hover:hx-border-gray-300 hx-bg-transparent hx-shadow-sm dark:hx-border-neutral-800 hover:hx-bg-slate-50 hover:hx-shadow-md dark:hover:hx-border-neutral-700 dark:hover:hx-bg-neutral-900&#34;href=&#34;docs/first-page&#34;
+      &gt;&lt;span class=&#34;hextra-card-icon hx-flex hx-font-semibold hx-items-start hx-gap-2 hx-p-4 hx-text-gray-700 hover:hx-text-gray-900 dark:hx-text-neutral-200 dark:hover:hx-text-neutral-50&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; fill=&#34;none&#34; viewBox=&#34;0 0 24 24&#34; stroke-width=&#34;2&#34; stroke=&#34;currentColor&#34; aria-hidden=&#34;true&#34;&gt;&lt;path stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; d=&#34;M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4&#34;/&gt;&lt;/svg&gt;How it works&lt;/span&gt;&lt;/a&gt;
+  &lt;a
+    class=&#34;hextra-card hx-group hx-flex hx-flex-col hx-justify-start hx-overflow-hidden hx-rounded-lg hx-border hx-border-gray-200 hx-text-current hx-no-underline dark:hx-shadow-none hover:hx-shadow-gray-100 dark:hover:hx-shadow-none hx-shadow-gray-100 active:hx-shadow-sm active:hx-shadow-gray-200 hx-transition-all hx-duration-200 hover:hx-border-gray-300 hx-bg-transparent hx-shadow-sm dark:hx-border-neutral-800 hover:hx-bg-slate-50 hover:hx-shadow-md dark:hover:hx-border-neutral-700 dark:hover:hx-bg-neutral-900&#34;href=&#34;docs/installation&#34;
+      &gt;&lt;span class=&#34;hextra-card-icon hx-flex hx-font-semibold hx-items-start hx-gap-2 hx-p-4 hx-text-gray-700 hover:hx-text-gray-900 dark:hx-text-neutral-200 dark:hover:hx-text-neutral-50&#34;&gt;&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; fill=&#34;none&#34; viewBox=&#34;0 0 24 24&#34; stroke-width=&#34;2&#34; stroke=&#34;currentColor&#34; aria-hidden=&#34;true&#34;&gt;&lt;path stroke-linecap=&#34;round&#34; stroke-linejoin=&#34;round&#34; d=&#34;M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z&#34;/&gt;&lt;/svg&gt;Installation&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The Parliamentary Question Responder represents a practical application of AI to enhance democratic processes while maintaining human oversight.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>How is Works</title>
+      <link>//localhost:1313/docs/how-it-works/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/docs/how-it-works/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;Functionality&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;functionality&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#functionality&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;Sign On&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;sign-on&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#sign-on&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;After signing in, users arrive at the landing page where they can choose between two primary functions: identifying similar parliamentary questions that have been previously answered to establish precedent, or drafting a new AI-assisted response complete with citations from official source materials.&lt;/p&gt;
+&lt;div class=&#34;hextra-cards hx-mt-4 hx-gap-4 hx-grid not-prose&#34; style=&#34;--hextra-cards-grid-cols: 3;&#34;&gt;
+  
+      &lt;a
+    class=&#34;hextra-card hx-group hx-flex hx-flex-col hx-justify-start hx-overflow-hidden hx-rounded-lg hx-border hx-border-gray-200 hx-text-current hx-no-underline dark:hx-shadow-none hover:hx-shadow-gray-100 dark:hover:hx-shadow-none hx-shadow-gray-100 active:hx-shadow-sm active:hx-shadow-gray-200 hx-transition-all hx-duration-200 hover:hx-border-gray-300 hx-bg-gray-100 hx-shadow dark:hx-border-neutral-700 dark:hx-bg-neutral-800 dark:hx-text-gray-50 hover:hx-shadow-lg dark:hover:hx-border-neutral-500 dark:hover:hx-bg-neutral-700&#34;href=&#34;//localhost:1313/docs/images/pq-signin.png&#34;
+      &gt;&lt;img
+        alt=&#34;Application Sign on Page&#34;
+        class=&#34;hextra-card-image&#34;
+        loading=&#34;lazy&#34;
+        decoding=&#34;async&#34;
+        src=&#34;//localhost:1313/docs/images/pq-signin.png&#34;
+        
+        
+        
+      /&gt;&lt;span class=&#34;hextra-card-icon hx-flex hx-font-semibold hx-items-start hx-gap-2 hx-p-4 hx-text-gray-700 hover:hx-text-gray-900 dark:hx-text-neutral-200 dark:hover:hx-text-neutral-50&#34;&gt;Application Sign on Page&lt;/span&gt;&lt;/a&gt;
+  
+      &lt;a
+    class=&#34;hextra-card hx-group hx-flex hx-flex-col hx-justify-start hx-overflow-hidden hx-rounded-lg hx-border hx-border-gray-200 hx-text-current hx-no-underline dark:hx-shadow-none hover:hx-shadow-gray-100 dark:hover:hx-shadow-none hx-shadow-gray-100 active:hx-shadow-sm active:hx-shadow-gray-200 hx-transition-all hx-duration-200 hover:hx-border-gray-300 hx-bg-gray-100 hx-shadow dark:hx-border-neutral-700 dark:hx-bg-neutral-800 dark:hx-text-gray-50 hover:hx-shadow-lg dark:hover:hx-border-neutral-500 dark:hover:hx-bg-neutral-700&#34;href=&#34;//localhost:1313/docs/images/pq-home.png&#34;
+      &gt;&lt;img
+        alt=&#34;Application Landing Page&#34;
+        class=&#34;hextra-card-image&#34;
+        loading=&#34;lazy&#34;
+        decoding=&#34;async&#34;
+        src=&#34;//localhost:1313/docs/images/pq-home.png&#34;
+        
+        
+        
+      /&gt;&lt;span class=&#34;hextra-card-icon hx-flex hx-font-semibold hx-items-start hx-gap-2 hx-p-4 hx-text-gray-700 hover:hx-text-gray-900 dark:hx-text-neutral-200 dark:hover:hx-text-neutral-50&#34;&gt;Application Landing Page&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;Question Intake &amp;amp; Similar Question Detection&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;question-intake--similar-question-detection&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#question-intake--similar-question-detection&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;When an analyst enters a new parliamentary question into the web interface, the system automatically analyses the content and identifies similar questions that have been previously answered. This allows analysts to quickly establish precedent and maintain consistency in government responses.&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;
+    &lt;img src=&#34;//localhost:1313/docs/images/pq-similar.png&#34; title=&#34;Similar Questions Interface User Interface: System displays the current question alongside previously answered questions ranked by similarity&#34; alt=&#34;Similar&#34; loading=&#34;lazy&#34; /&gt;
+    &lt;figcaption&gt;Similar Questions Interface User Interface: System displays the current question alongside previously answered questions ranked by similarity&lt;/figcaption&gt;
+  &lt;/figure&gt;&lt;/p&gt;
+&lt;h3&gt;AI-Assisted Drafting&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;ai-assisted-drafting&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#ai-assisted-drafting&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;With a click of a button, the system generates draft responses based on official parliamentary documents. Each draft includes citations to source materials, ensuring transparency and verifiability.&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;
+    &lt;img src=&#34;//localhost:1313/docs/images/pq-chat.png&#34; title=&#34;AI-Assisted Drafting User Interface: AI-generated draft with source citations ready for analyst review&#34; alt=&#34;Drafting&#34; loading=&#34;lazy&#34; /&gt;
+    &lt;figcaption&gt;AI-Assisted Drafting User Interface: AI-generated draft with source citations ready for analyst review&lt;/figcaption&gt;
+  &lt;/figure&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Architecture</title>
+      <link>//localhost:1313/docs/architecture/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/docs/architecture/</guid>
+      <description>
+        
+        
+        &lt;!--
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: MIT-0
+--&gt;
+&lt;p&gt;The Parliamentary Question Responder is built on a modular, cloud-based architecture designed for security, scalability, and with an ingestion mechanism from government systems.&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;
+    &lt;img src=&#34;//localhost:1313/docs/images/architecture.png&#34; title=&#34;PQ Parliamentary Question Responder Architecture&#34; alt=&#34;Similar&#34; loading=&#34;lazy&#34; /&gt;
+    &lt;figcaption&gt;PQ Parliamentary Question Responder Architecture&lt;/figcaption&gt;
+  &lt;/figure&gt;&lt;/p&gt;
+&lt;h2&gt;Key Components&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;key-components&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#key-components&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;This architecture ensures that the Parliamentary Question Responder can be deployed securely within government environments while providing the flexibility to adapt to specific departmental needs and workflows.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Data Ingestion Layer&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Connects to government data sources (in this case &lt;a href=&#34;https://questions-statements-api.parliament.uk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://questions-statements-api.parliament.uk&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Processes and indexes the parliament questions into knowledge bases.&lt;/li&gt;
+&lt;li&gt;The data can be periodically refreshed to ensure access to the latest published answers.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;AI Processing Engine&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Leverages Amazon Bedrock&amp;rsquo;s generative AI capabilities to performance semantic search for identifying similar questions, or draft responses against guidelines and parliament documentation.&lt;/li&gt;
+&lt;li&gt;Maintains context awareness across indexed data sources.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Response Generation System&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Creates draft responses following parliamentary writing conventions.&lt;/li&gt;
+&lt;li&gt;Maintains citation links to source documents.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;API Integration Framework&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;RESTful APIs for seamless integration with existing workflow systems&lt;/li&gt;
+&lt;li&gt;Secure authentication and authorization controls&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;User Interface Layer&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Intuitive web-based interface for analysts&lt;/li&gt;
+&lt;li&gt;Secure access managed through Amazon Cognito&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Installation</title>
+      <link>//localhost:1313/docs/installation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/docs/installation/</guid>
+      <description>
+        
+        
+        &lt;!--
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: MIT-0
+--&gt;
+&lt;div class=&#34;hx-overflow-x-auto hx-mt-6 hx-flex hx-rounded-lg hx-border hx-py-2 ltr:hx-pr-4 rtl:hx-pl-4 contrast-more:hx-border-current contrast-more:dark:hx-border-current hx-border-blue-200 hx-bg-blue-100 hx-text-blue-900 dark:hx-border-blue-200/30 dark:hx-bg-blue-900/30 dark:hx-text-blue-200&#34;&gt;
+  &lt;div class=&#34;ltr:hx-pl-3 ltr:hx-pr-2 rtl:hx-pr-3 rtl:hx-pl-2&#34;&gt;&lt;div class=&#34;hx-select-none hx-text-xl&#34; style=&#34;font-family: &#39;Apple Color Emoji&#39;, &#39;Segoe UI Emoji&#39;, &#39;Segoe UI Symbol&#39;;&#34;&gt;ℹ️&lt;/div&gt;&lt;/div&gt;
+
+  &lt;div class=&#34;hx-w-full hx-min-w-0 hx-leading-7&#34;&gt;
+    &lt;div class=&#34;hx-mt-6 hx-leading-7 first:hx-mt-0&#34;&gt;Installation typically takes between 20-30 minutes.&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2&gt;Prerequisite&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;prerequisite&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#prerequisite&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;AWS Account
+&lt;ul&gt;
+&lt;li&gt;Current shell authenticated to your AWS Account&lt;/li&gt;
+&lt;li&gt;Model access granted in target region (default &lt;code&gt;us-west-2&lt;/code&gt;) for:
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;anthropic.claude-3-sonnet-20240229-v1:0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;amazon.titan-embed-text-v2:0&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;AWS CLI&lt;/li&gt;
+&lt;li&gt;Python 3.13&lt;/li&gt;
+&lt;li&gt;Node v20 (configured in your terminal)&lt;/li&gt;
+&lt;li&gt;make &amp;gt; v4 (&lt;code&gt;brew install make&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Installation&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;installation&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#installation&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;From a shell that is authenticated to your AWS Account, change directory to where you would like to clone the repo.&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#Clone the GitHub repository&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://github.com/aws-samples/sample-parliamentary-question-responder.git
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#Change directory&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; sample-parliamentary-question-responder
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#Run the initialization process&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gmake init
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#Activate the Python virtual environment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; .venv/bin/activate
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#Deploy the application&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gmake deploy&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Once the sample is deployed &lt;a href=&#34;https://aws.amazon.com/lambda/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;AWS Lambda&lt;/a&gt; functions are called to pull the last 4 days of written questions and publications from the Education Committee from the Parliamentary API. Once the content has been retrieved it is added to the appropriate&lt;a href=&#34;https://aws.amazon.com/bedrock/knowledge-bases/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Amazon Bedrock Knowledge Bases&lt;/a&gt;. This asynchronous process can take a few minutes to complete, you can track progress by looking at the length of the &lt;a href=&#34;https://aws.amazon.com/sqs/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Amazon Simple Queue Service&lt;/a&gt; queues.&lt;/p&gt;
+&lt;h2&gt;Accessing the Application&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;accessing-the-application&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#accessing-the-application&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;To access the frontend website, locate the SiteCloudFrontUrl value from the stack outputs (this is also displayed as the final output of the gmake deploy command) and paste this URL into your browser. When the page loads, click the Sign In button and then select the Create an account link to set up your user account.&lt;/p&gt;
+&lt;p&gt;After completing the account creation process, you can use the Find similar questions feature to search for previously asked questions and their responses, or use the Chat feature to interact with the publications Knowledge Base and draft responses to parliamentary questions.&lt;/p&gt;
+&lt;h2&gt;Useful Commands&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;useful-commands&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#useful-commands&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;gmake init&lt;/code&gt; (Install / update python and node dependencies)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gmake deploy&lt;/code&gt; (Deploy the latest version of the backend, frontend and retrieve the last 4 days of written questions and all publications from the Education Committee to the Knowledge Bases)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gmake delete&lt;/code&gt; (Delete the sample from your AWS Account including all data)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;g&lt;/code&gt;make deploy-backend` (Deploy the latest version of the backend)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gmake sync-backend&lt;/code&gt; (Deploy backend changes as updates are saved)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gmake deploy-frontend&lt;/code&gt; (Deploy the latest version of the frontend)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gmake run-frontend&lt;/code&gt; (Run the frontend locally)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gmake get-questions-&amp;lt;number of days&amp;gt;&lt;/code&gt; (Retrieve the last number of days questions to add to the Knowledge Base)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gmake clean&lt;/code&gt; (Remove temp files from the project directory)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gmake unit&lt;/code&gt; (Run backend unit tests)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gmake integration&lt;/code&gt; (Run backend integration tests)&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
