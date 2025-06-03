@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://aws-samples.github.io/sample-parliamentary-question-responder/docs/business-context/</loc>
+    <loc>http://localhost:52638/sample-parliamentary-question-responder/docs/business-context/</loc>
   </url><url>
-    <loc>https://aws-samples.github.io/sample-parliamentary-question-responder/docs/how-it-works/</loc>
+    <loc>http://localhost:52638/sample-parliamentary-question-responder/docs/how-it-works/</loc>
   </url><url>
-    <loc>https://aws-samples.github.io/sample-parliamentary-question-responder/docs/architecture/</loc>
+    <loc>http://localhost:52638/sample-parliamentary-question-responder/docs/architecture/</loc>
   </url><url>
-    <loc>https://aws-samples.github.io/sample-parliamentary-question-responder/docs/installation/</loc>
+    <loc>http://localhost:52638/sample-parliamentary-question-responder/docs/installation/</loc>
   </url><url>
-    <loc>https://aws-samples.github.io/sample-parliamentary-question-responder/</loc>
+    <loc>http://localhost:52638/sample-parliamentary-question-responder/</loc>
   </url><url>
-    <loc>https://aws-samples.github.io/sample-parliamentary-question-responder/about/</loc>
+    <loc>http://localhost:52638/sample-parliamentary-question-responder/about/</loc>
   </url><url>
-    <loc>https://aws-samples.github.io/sample-parliamentary-question-responder/categories/</loc>
+    <loc>http://localhost:52638/sample-parliamentary-question-responder/categories/</loc>
   </url><url>
-    <loc>https://aws-samples.github.io/sample-parliamentary-question-responder/docs/</loc>
+    <loc>http://localhost:52638/sample-parliamentary-question-responder/docs/</loc>
   </url><url>
-    <loc>https://aws-samples.github.io/sample-parliamentary-question-responder/tags/</loc>
+    <loc>http://localhost:52638/sample-parliamentary-question-responder/tags/</loc>
   </url>
 </urlset>
