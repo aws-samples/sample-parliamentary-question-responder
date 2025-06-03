@@ -1,4 +1,5 @@
 # Hugo configuration file
+baseURL: https://aws-samples.github.io/sample-parliamentary-question-responder/
 languageCode: en-gb
 title: Parliamentary Question Responder
 
