@@ -1,5 +1,5 @@
 ---
-title: How it Works
+title: How It Works
 type: docs
 prev: docs/business-context/
 next: docs/architecture/
@@ -20,7 +20,7 @@ The application uses a standard authentication flow powered by Amazon Cognito. N
 5. Enter the verification code on the confirmation screen
 6. Optionally, you may set up sign-in with a passkey for enhanced security and convenience
 7. Once verified, you'll be automatically redirected to the application landing page
-
+<br></br>
 {{< cards >}}
   {{< card link="/docs/images/pq-signin.png" title="Application Sign on Page" image="/docs/images/pq-signin.png">}}
   {{< card link="/docs/images/pq-home.png" title="Application Landing Page" image="/docs/images/pq-home.png">}}
