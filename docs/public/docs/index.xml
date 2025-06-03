@@ -1,12 +1,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Parliamentary Question Responder – Documentation</title>
-    <link>//localhost:1313/docs/</link>
+    <link>https://aws-samples.github.io/sample-parliamentary-question-responder/docs/</link>
     <description>Recent content in Documentation on Parliamentary Question Responder</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     
-	  <atom:link href="//localhost:1313/docs/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="https://aws-samples.github.io/sample-parliamentary-question-responder/docs/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -16,10 +16,10 @@
     
     <item>
       <title>Business Context</title>
-      <link>//localhost:1313/docs/business-context/</link>
+      <link>https://aws-samples.github.io/sample-parliamentary-question-responder/docs/business-context/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/docs/business-context/</guid>
+      <guid>https://aws-samples.github.io/sample-parliamentary-question-responder/docs/business-context/</guid>
       <description>
         
         
@@ -130,10 +130,10 @@
     
     <item>
       <title>How It Works</title>
-      <link>//localhost:1313/docs/how-it-works/</link>
+      <link>https://aws-samples.github.io/sample-parliamentary-question-responder/docs/how-it-works/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/docs/how-it-works/</guid>
+      <guid>https://aws-samples.github.io/sample-parliamentary-question-responder/docs/how-it-works/</guid>
       <description>
         
         
@@ -153,26 +153,26 @@
 &lt;div class=&#34;hextra-cards hx-mt-4 hx-gap-4 hx-grid not-prose&#34; style=&#34;--hextra-cards-grid-cols: 3;&#34;&gt;
   
       &lt;a
-    class=&#34;hextra-card hx-group hx-flex hx-flex-col hx-justify-start hx-overflow-hidden hx-rounded-lg hx-border hx-border-gray-200 hx-text-current hx-no-underline dark:hx-shadow-none hover:hx-shadow-gray-100 dark:hover:hx-shadow-none hx-shadow-gray-100 active:hx-shadow-sm active:hx-shadow-gray-200 hx-transition-all hx-duration-200 hover:hx-border-gray-300 hx-bg-gray-100 hx-shadow dark:hx-border-neutral-700 dark:hx-bg-neutral-800 dark:hx-text-gray-50 hover:hx-shadow-lg dark:hover:hx-border-neutral-500 dark:hover:hx-bg-neutral-700&#34;href=&#34;//localhost:1313/docs/images/pq-signin.png&#34;
+    class=&#34;hextra-card hx-group hx-flex hx-flex-col hx-justify-start hx-overflow-hidden hx-rounded-lg hx-border hx-border-gray-200 hx-text-current hx-no-underline dark:hx-shadow-none hover:hx-shadow-gray-100 dark:hover:hx-shadow-none hx-shadow-gray-100 active:hx-shadow-sm active:hx-shadow-gray-200 hx-transition-all hx-duration-200 hover:hx-border-gray-300 hx-bg-gray-100 hx-shadow dark:hx-border-neutral-700 dark:hx-bg-neutral-800 dark:hx-text-gray-50 hover:hx-shadow-lg dark:hover:hx-border-neutral-500 dark:hover:hx-bg-neutral-700&#34;href=&#34;https://aws-samples.github.io/sample-parliamentary-question-responder/docs/images/pq-signin.png&#34;
       &gt;&lt;img
         alt=&#34;Application Sign on Page&#34;
         class=&#34;hextra-card-image&#34;
         loading=&#34;lazy&#34;
         decoding=&#34;async&#34;
-        src=&#34;//localhost:1313/docs/images/pq-signin.png&#34;
+        src=&#34;https://aws-samples.github.io/sample-parliamentary-question-responder/docs/images/pq-signin.png&#34;
         
         
         
       /&gt;&lt;span class=&#34;hextra-card-icon hx-flex hx-font-semibold hx-items-start hx-gap-2 hx-p-4 hx-text-gray-700 hover:hx-text-gray-900 dark:hx-text-neutral-200 dark:hover:hx-text-neutral-50&#34;&gt;Application Sign on Page&lt;/span&gt;&lt;/a&gt;
   
       &lt;a
-    class=&#34;hextra-card hx-group hx-flex hx-flex-col hx-justify-start hx-overflow-hidden hx-rounded-lg hx-border hx-border-gray-200 hx-text-current hx-no-underline dark:hx-shadow-none hover:hx-shadow-gray-100 dark:hover:hx-shadow-none hx-shadow-gray-100 active:hx-shadow-sm active:hx-shadow-gray-200 hx-transition-all hx-duration-200 hover:hx-border-gray-300 hx-bg-gray-100 hx-shadow dark:hx-border-neutral-700 dark:hx-bg-neutral-800 dark:hx-text-gray-50 hover:hx-shadow-lg dark:hover:hx-border-neutral-500 dark:hover:hx-bg-neutral-700&#34;href=&#34;//localhost:1313/docs/images/pq-home.png&#34;
+    class=&#34;hextra-card hx-group hx-flex hx-flex-col hx-justify-start hx-overflow-hidden hx-rounded-lg hx-border hx-border-gray-200 hx-text-current hx-no-underline dark:hx-shadow-none hover:hx-shadow-gray-100 dark:hover:hx-shadow-none hx-shadow-gray-100 active:hx-shadow-sm active:hx-shadow-gray-200 hx-transition-all hx-duration-200 hover:hx-border-gray-300 hx-bg-gray-100 hx-shadow dark:hx-border-neutral-700 dark:hx-bg-neutral-800 dark:hx-text-gray-50 hover:hx-shadow-lg dark:hover:hx-border-neutral-500 dark:hover:hx-bg-neutral-700&#34;href=&#34;https://aws-samples.github.io/sample-parliamentary-question-responder/docs/images/pq-home.png&#34;
       &gt;&lt;img
         alt=&#34;Application Landing Page&#34;
         class=&#34;hextra-card-image&#34;
         loading=&#34;lazy&#34;
         decoding=&#34;async&#34;
-        src=&#34;//localhost:1313/docs/images/pq-home.png&#34;
+        src=&#34;https://aws-samples.github.io/sample-parliamentary-question-responder/docs/images/pq-home.png&#34;
         
         
         
@@ -184,13 +184,13 @@
 &lt;h3&gt;Question Intake &amp;amp; Similar Question Detection&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;question-intake--similar-question-detection&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#question-intake--similar-question-detection&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;When an analyst enters a new parliamentary question into the web interface, the system automatically analyses the content and identifies similar questions that have been previously answered. This allows analysts to quickly establish precedent and maintain consistency in government responses.&lt;/p&gt;
 &lt;p&gt;&lt;figure&gt;
-    &lt;img src=&#34;//localhost:1313/docs/images/pq-similar.png&#34; title=&#34;Similar Questions Interface User Interface: System displays the current question alongside previously answered questions ranked by similarity&#34; alt=&#34;Similar&#34; loading=&#34;lazy&#34; /&gt;
+    &lt;img src=&#34;https://aws-samples.github.io/sample-parliamentary-question-responder/docs/images/pq-similar.png&#34; title=&#34;Similar Questions Interface User Interface: System displays the current question alongside previously answered questions ranked by similarity&#34; alt=&#34;Similar&#34; loading=&#34;lazy&#34; /&gt;
     &lt;figcaption&gt;Similar Questions Interface User Interface: System displays the current question alongside previously answered questions ranked by similarity&lt;/figcaption&gt;
   &lt;/figure&gt;&lt;/p&gt;
 &lt;h3&gt;AI-Assisted Drafting&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;ai-assisted-drafting&#34;&gt;&lt;/span&gt;
     &lt;a href=&#34;#ai-assisted-drafting&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;With a click of a button, the system generates draft responses based on official parliamentary documents. Each draft includes citations to source materials, ensuring transparency and verifiability.&lt;/p&gt;
 &lt;p&gt;&lt;figure&gt;
-    &lt;img src=&#34;//localhost:1313/docs/images/pq-chat.png&#34; title=&#34;AI-Assisted Drafting User Interface: AI-generated draft with source citations ready for analyst review&#34; alt=&#34;Drafting&#34; loading=&#34;lazy&#34; /&gt;
+    &lt;img src=&#34;https://aws-samples.github.io/sample-parliamentary-question-responder/docs/images/pq-chat.png&#34; title=&#34;AI-Assisted Drafting User Interface: AI-generated draft with source citations ready for analyst review&#34; alt=&#34;Drafting&#34; loading=&#34;lazy&#34; /&gt;
     &lt;figcaption&gt;AI-Assisted Drafting User Interface: AI-generated draft with source citations ready for analyst review&lt;/figcaption&gt;
   &lt;/figure&gt;&lt;/p&gt;
 
@@ -199,10 +199,10 @@
     
     <item>
       <title>Architecture</title>
-      <link>//localhost:1313/docs/architecture/</link>
+      <link>https://aws-samples.github.io/sample-parliamentary-question-responder/docs/architecture/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/docs/architecture/</guid>
+      <guid>https://aws-samples.github.io/sample-parliamentary-question-responder/docs/architecture/</guid>
       <description>
         
         
@@ -212,7 +212,7 @@ SPDX-License-Identifier: MIT-0
 --&gt;
 &lt;p&gt;The Parliamentary Question Responder is built on a modular, cloud-based architecture designed for security, scalability, and with an ingestion mechanism from government systems.&lt;/p&gt;
 &lt;p&gt;&lt;figure&gt;
-    &lt;img src=&#34;//localhost:1313/docs/images/architecture.png&#34; title=&#34;PQ Parliamentary Question Responder Architecture&#34; alt=&#34;Similar&#34; loading=&#34;lazy&#34; /&gt;
+    &lt;img src=&#34;https://aws-samples.github.io/sample-parliamentary-question-responder/docs/images/architecture.png&#34; title=&#34;PQ Parliamentary Question Responder Architecture&#34; alt=&#34;Similar&#34; loading=&#34;lazy&#34; /&gt;
     &lt;figcaption&gt;PQ Parliamentary Question Responder Architecture&lt;/figcaption&gt;
   &lt;/figure&gt;&lt;/p&gt;
 &lt;h2&gt;Key Components&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;key-components&#34;&gt;&lt;/span&gt;
@@ -249,10 +249,10 @@ SPDX-License-Identifier: MIT-0
     
     <item>
       <title>Installation</title>
-      <link>//localhost:1313/docs/installation/</link>
+      <link>https://aws-samples.github.io/sample-parliamentary-question-responder/docs/installation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/docs/installation/</guid>
+      <guid>https://aws-samples.github.io/sample-parliamentary-question-responder/docs/installation/</guid>
       <description>
         
         
