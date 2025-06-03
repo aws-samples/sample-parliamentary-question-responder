@@ -1,5 +1,5 @@
 ---
-title: How is Works
+title: How it Works
 type: docs
 prev: docs/business-context/
 next: docs/architecture/
@@ -9,12 +9,24 @@ weight: 1
 ## Functionality
 
 ### Sign On
-After signing in, users arrive at the landing page where they can choose between two primary functions: identifying similar parliamentary questions that have been previously answered to establish precedent, or drafting a new AI-assisted response complete with citations from official source materials.
+
+The application uses a standard authentication flow powered by Amazon Cognito. New users will need to create an account before accessing the system's functionality.
+
+#### Account Creation Process
+1. From the sign-in page, select "Create an account"
+2. Enter your email address and create a secure password
+3. Submit the form to initiate account verification
+4. Check your email for a verification code
+5. Enter the verification code on the confirmation screen
+6. Optionally, you may set up sign-in with a passkey for enhanced security and convenience
+7. Once verified, you'll be automatically redirected to the application landing page
 
 {{< cards >}}
   {{< card link="/docs/images/pq-signin.png" title="Application Sign on Page" image="/docs/images/pq-signin.png">}}
   {{< card link="/docs/images/pq-home.png" title="Application Landing Page" image="/docs/images/pq-home.png">}}
 {{< /cards >}}
+
+After signing in, users arrive at the landing page where they can choose between two primary functions: identifying similar parliamentary questions that have been previously answered to establish precedent, or drafting a new AI-assisted response complete with citations from official source materials.
 
 ### Question Intake & Similar Question Detection
 

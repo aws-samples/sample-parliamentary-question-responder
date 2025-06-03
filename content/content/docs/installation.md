@@ -58,7 +58,7 @@ After completing the account creation process, you can use the Find similar ques
 * `gmake init` (Install / update python and node dependencies)
 * `gmake deploy` (Deploy the latest version of the backend, frontend and retrieve the last 4 days of written questions and all publications from the Education Committee to the Knowledge Bases)
 * `gmake delete` (Delete the sample from your AWS Account including all data)
-* `g`make deploy-backend` (Deploy the latest version of the backend)
+* `gmake deploy-backend` (Deploy the latest version of the backend)
 * `gmake sync-backend` (Deploy backend changes as updates are saved)
 * `gmake deploy-frontend` (Deploy the latest version of the frontend)
 * `gmake run-frontend` (Run the frontend locally)
