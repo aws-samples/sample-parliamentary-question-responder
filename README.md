@@ -7,9 +7,7 @@ Parliamentary Question Responder is an intelligent solution designed to streamli
 ## Documentation
 
 - [Documentation](https://aws-samples.github.io/sample-parliamentary-question-responder/)
-	- [Business Context](https://aws-samples.github.io/sample-parliamentary-question-responder/docs/business-context/)
-	- [How it works](https://aws-samples.github.io/sample-parliamentary-question-responder/docs/how-it-works/)
+  - [Business Context](https://aws-samples.github.io/sample-parliamentary-question-responder/docs/business-context/)
+  - [How It works](https://aws-samples.github.io/sample-parliamentary-question-responder/docs/how-it-works/)
   - [Architecture](https://aws-samples.github.io/sample-parliamentary-question-responder/docs/architecture/)
-	- [Installation](https://aws-samples.github.io/sample-parliamentary-question-responder/docs/installation/)
-
-
+  - [Installation](https://aws-samples.github.io/sample-parliamentary-question-responder/docs/installation/)
