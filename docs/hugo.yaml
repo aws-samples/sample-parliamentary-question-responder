@@ -1,0 +1,50 @@
+# Hugo configuration file
+baseURL: https://aws-samples.github.io/sample-parliamentary-question-responder/
+languageCode: en-gb
+title: Parliamentary Question Responder
+
+# import hextra as module
+module:
+  imports:
+    - path: github.com/imfing/hextra
+
+markup:
+  # allow raw html
+  goldmark:
+    renderer:
+      unsafe: true
+
+  # enable hextra syntax highlight
+  highlight:
+    noClasses: false
+
+menu:
+  main:
+    - name: Installation
+      pageRef: /docs/installation/
+      weight: 2
+    - name: Documentation
+      pageRef: /docs/
+      weight: 1
+    - name: Search
+      weight: 98
+      params:
+        type: search
+    - name: GitHub
+      weight: 99
+      url: "https://github.com/imfing/hextra-starter-template"
+      params:
+        icon: github
+
+params:
+  navbar:
+    displayTitle: true
+    displayLogo: false
+
+  footer:
+    displayCopyright: false
+    displayPoweredBy: true
+
+  editURL:
+    enable: true
+    base: "https://github.com/imfing/hextra-starter-template/edit/main/content"
