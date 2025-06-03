@@ -1,4 +1,4 @@
-module github.com/imfing/hextra-starter-template
+module github.com/aws-samples/sample-parliamentary-question-responder
 
 go 1.21
 
