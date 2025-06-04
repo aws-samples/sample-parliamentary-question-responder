@@ -33,7 +33,7 @@ layout: hextra-home
 		link="docs/business-context"
 		subtitle="In time of constrained public finances, governments are looking to achieve productivity and efficiency savings through automation."
 		class="hx-aspect-auto md:hx-aspect-[1.1/1] max-md:hx-min-h-[340px]"
-		image="docs/images/automation.jpeg"
+		image="docs/images/automation.png"
 		imageClass="hx-absolute hx-max-w-none hx-top-[20%] hx-left-[24px] hx-w-[180%] sm:hx-w-[110%] dark:hx-opacity-80"
 		style="background: radial-gradient(ellipse at 50% 80%,rgba(4, 3, 4, 0.15),hsla(0,0%,100%,0));"
 	>}}
