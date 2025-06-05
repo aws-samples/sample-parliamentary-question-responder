@@ -61,7 +61,7 @@ class BedrockAgent:
         Raises:
             ClientError: If the agent invocation fails
         """
-        logger.info(f"Suggesting answer to: {prompt}")
+        logger.debug(f"Suggesting answer to: {prompt}")
 
         if session_id is None:
             session_id = str(uuid.uuid4())
@@ -128,7 +128,7 @@ class BedrockFlow:
             JSONDecodeError: If response parsing fails
             Exception: For other errors during processing
         """
-        logger.info(f"Finding similar questions to: {question}")
+        logger.debug(f"Finding similar questions to: {question}")
 
         response = bedrock_agent_runtime_client.invoke_flow(
             # enableTrace=False,

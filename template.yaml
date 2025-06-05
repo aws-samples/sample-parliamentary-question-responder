@@ -74,7 +74,7 @@ Globals:
     Environment:
       Variables:
         POWERTOOLS_METRICS_NAMESPACE: pq-responder
-        LOG_LEVEL: DEBUG
+        LOG_LEVEL: INFO
         AWS_LAMBDA_EXEC_WRAPPER: /opt/otel-instrument
     Tracing: Active
     Layers: 
