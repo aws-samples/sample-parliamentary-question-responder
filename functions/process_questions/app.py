@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """
 Lambda function that handles CloudWatch alarm events to scan a Bedrock knowledge base and run a Glue crawler.
 
@@ -60,8 +61,7 @@ def lambda_handler(event: CloudWatchAlarmEvent, context: LambdaContext): # pylin
         if response.get("ResponseMetadata") is not None:
             if response["ResponseMetadata"]["HTTPStatusCode"] != 202:
                 raise RuntimeError("Failed to scan knowledge base")
-            else:
-                logger.info("Successfully scanned knowledge base")
+            logger.info("Successfully scanned knowledge base")
         else:
             raise TypeError(
                 "Response metadata could not be retrieved due to NoneType response."
@@ -72,8 +72,7 @@ def lambda_handler(event: CloudWatchAlarmEvent, context: LambdaContext): # pylin
         if response.get("ResponseMetadata") is not None:
             if response["ResponseMetadata"]["HTTPStatusCode"] != 200:
                 raise RuntimeError("Failed to start crawler knowledge base")
-            else:
-                logger.info("Successfully started crawler")
+            logger.info("Successfully started crawler")
         else:
             raise TypeError(
                 "Response metadata could not be retrieved due to NoneType response."

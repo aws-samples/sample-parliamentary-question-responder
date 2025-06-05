@@ -13,6 +13,7 @@ logger = Logger()
 sqs_client = boto3.client("sqs")
 
 
+# pylint: disable=too-few-public-methods
 class SQSQueue:
     """A class to handle interactions with an Amazon SQS queue.
 

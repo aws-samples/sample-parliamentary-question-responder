@@ -1494,7 +1494,7 @@ Resources:
     Properties:
       LayerName: pq-responder
       Description: Parliamentary Question Responder layer
-      ContentUri: layers/pq-responder
+      ContentUri: layers/pq_responder
       CompatibleRuntimes:
         - python3.13
       CompatibleArchitectures:

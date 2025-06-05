@@ -26,6 +26,7 @@ s3_client = boto3.client("s3")
 glue_client = boto3.client("glue")
 
 
+# pylint: disable=too-few-public-methods
 class BedrockAgent:
     """
     Class for interacting with Amazon Bedrock Agents.
@@ -91,6 +92,7 @@ class BedrockAgent:
             raise e
 
 
+# pylint: disable=too-few-public-methods
 class BedrockFlow:
     """
     Class for interacting with Amazon Bedrock Flows.
@@ -111,6 +113,7 @@ class BedrockFlow:
         self.flow_alias_identifier = flow_alias_identifier
         self.flow_identifier = flow_identifier
 
+    # pylint: disable=inconsistent-return-statements
     def find_similar_questions(self, question: str) -> Questions:
         """
         Find questions similar to the input question using the Bedrock flow.
@@ -167,13 +170,13 @@ class BedrockFlow:
                 raise e
 
             return questions
-        else:
-            logger.error(
-                "The prompt flow invocation didn't complete successfully because of the following reason:",
-                result["flowCompletionEvent"]["completionReason"],
-            )
+        logger.error(
+            "The prompt flow invocation didn't complete successfully because of the following reason:",
+            result["flowCompletionEvent"]["completionReason"],
+        )
 
 
+# pylint: disable=too-few-public-methods
 class BedrockKnowledgeBase:
     """
     Base class for interacting with Amazon Bedrock Knowledge Bases.
@@ -210,6 +213,7 @@ class BedrockKnowledgeBase:
         return response
 
 
+# pylint: disable=too-few-public-methods
 class QuestionBedrockKnowledgeBase(BedrockKnowledgeBase):
     """
     Class for handling question-specific knowledge base operations.
@@ -217,6 +221,7 @@ class QuestionBedrockKnowledgeBase(BedrockKnowledgeBase):
     """
 
 
+# pylint: disable=too-few-public-methods
 class ContentBedrockKnowledgeBase(BedrockKnowledgeBase):
     """
     Class for content-specific knowledge base operations.

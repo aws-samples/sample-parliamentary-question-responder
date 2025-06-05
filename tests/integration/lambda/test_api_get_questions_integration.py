@@ -2,7 +2,7 @@ import os
 
 import sys
 sys.path.append('.')
-sys.path.append(os.path.join(os.getcwd(), 'layers', 'pq-responder'))
+sys.path.append(os.path.join(os.getcwd(), 'layers', 'pq_responder'))
 
 from functions.api_get_questions.app import lambda_handler
 from tests.mock_data.mock_lambda_context import LambdaContext

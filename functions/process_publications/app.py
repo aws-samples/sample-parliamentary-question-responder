@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """
 Lambda function that scans a Bedrock Knowledge Base.
 

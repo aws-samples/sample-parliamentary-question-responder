@@ -1,3 +1,5 @@
+# pylint: disable=duplicate-code
+
 """
 Module for retrieving and queueing parliamentary questions.
 

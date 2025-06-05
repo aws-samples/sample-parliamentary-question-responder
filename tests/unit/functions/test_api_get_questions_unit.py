@@ -5,7 +5,7 @@ import sys
 import requests
 
 sys.path.append('.')
-sys.path.append(os.path.join(os.getcwd(), 'layers', 'pq-responder'))
+sys.path.append(os.path.join(os.getcwd(), 'layers', 'pq_responder'))
 
 from unittest.mock import patch, MagicMock
 # from moto import mock_sqs
