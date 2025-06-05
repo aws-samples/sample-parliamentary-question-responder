@@ -57,8 +57,8 @@ The Parliamentary Question Responder streamlines this process through the follow
 Ready to transform how your department handles parliamentary questions? Follow our installation guide to deploy this sample in your environment.
 
 {{< cards >}}
-  {{< card link="docs/first-page" title="How it works" icon="clipboard-check" >}}
-  {{< card link="docs/installation" title="Installation" icon="terminal" >}}
+  {{< card link="../how-it-works" title="How it works" icon="clipboard-check" >}}
+  {{< card link="../installation" title="Installation" icon="terminal" >}}
 {{< /cards >}}
 
 The Parliamentary Question Responder represents a practical application of AI to enhance democratic processes while maintaining human oversight.

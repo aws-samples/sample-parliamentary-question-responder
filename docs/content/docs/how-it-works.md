@@ -22,8 +22,8 @@ The application uses a standard authentication flow powered by Amazon Cognito. N
 7. Once verified, you'll be automatically redirected to the application landing page
 <br></br>
 {{< cards >}}
-  {{< card link="/docs/images/pq-signin.png" title="Application Sign on Page" image="/docs/images/pq-signin.png">}}
-  {{< card link="/docs/images/pq-home.png" title="Application Landing Page" image="/docs/images/pq-home.png">}}
+  {{< card link="../images/pq-signin.png" title="Application Sign on Page" image="/docs/images/pq-signin.png">}}
+  {{< card link="../images/pq-home.png" title="Application Landing Page" image="/docs/images/pq-home.png">}}
 {{< /cards >}}
 
 After signing in, users arrive at the landing page where they can choose between two primary functions: identifying similar parliamentary questions that have been previously answered to establish precedent, or drafting a new AI-assisted response complete with citations from official source materials.
