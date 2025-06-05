@@ -8,11 +8,11 @@ and metrics via AWS Lambda Powertools.
 """
 
 import json
+from datetime import datetime
+
 import boto3
 import boto3.exceptions
 import botocore.exceptions
-
-from datetime import datetime
 from aws_lambda_powertools import Logger, Metrics
 
 from models import Question, Publication
@@ -54,7 +54,7 @@ class SSMStorage:
         except botocore.exceptions.ClientError as e:
             logger.warning("Failed to save parameter to SSM: %s", e)
             raise e
-        
+
     def get_parameter(self) -> datetime:
         """Retrieve a parameter value from SSM Parameter Store.
 
@@ -72,7 +72,7 @@ class SSMStorage:
 
         if response["Parameter"]["Value"] == "null":
             return "null"
-        
+
         return datetime.strptime(response["Parameter"]["Value"], "%Y-%m-%d")
 
 class S3Storage:
@@ -101,7 +101,7 @@ class S3Storage:
         Raises:
             boto3.exceptions.S3UploadFailedError: If upload to S3 fails or response is invalid
         """
-        key = f"question_type=written/year={question.date_tabled.year:04d}/month={question.date_tabled.month:02d}/day={question.date_tabled.day:02d}/{question.id}.json"
+        key = f"question_type=written/year={question.date_tabled.year:04d}/month={question.date_tabled.month:02d}/day={question.date_tabled.day:02d}/{question.id}.json" # pylint: disable=line-too-long
         logger.debug("Saving %s to S3", key)
         metrics.add_metric(name="QuestionSaveS3", unit="Count", value=1)
 

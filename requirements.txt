@@ -10,3 +10,4 @@ pytest-cov
 moto
 pycognito
 validators
+cfn-lint

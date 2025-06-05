@@ -7,9 +7,10 @@ Each client handles request retries and data validation.
 from datetime import date, time, datetime
 from base64 import b64decode
 from urllib.parse import urlparse
+from enum import Enum
 from dateutil import parser
 from urllib3.util import Retry
-from enum import Enum
+
 
 import requests
 import requests.adapters
@@ -96,6 +97,7 @@ def validate_start_end_dates(start_date_tabled: date, end_date_tabled: date):
         raise ValueError("start_date_tabled and end_date_tabled must be in the past")
 
 
+# pylint: disable=too-few-public-methods
 class ParliamentCommitteesAPIClient:
     """Client for accessing Parliament Committee API endpoints."""
 
@@ -234,6 +236,7 @@ class ParliamentPublicationsAPIClient:
         finally:
             response.close()
 
+    # pylint: disable=too-many-locals
     def get_committee_publications_list(
         self, committee_id: int, start_date: date, end_date: date
     ) -> Publications:
@@ -261,7 +264,7 @@ class ParliamentPublicationsAPIClient:
 
         try:
             while True:
-                url = f"{self.base_uri}publications/?CommitteeId={committee_id}&StartDate={start_date_iso}&EndDate={end_date_iso}&skip={skip}&take={TAKE}"
+                url = f"{self.base_uri}publications/?CommitteeId={committee_id}&StartDate={start_date_iso}&EndDate={end_date_iso}&skip={skip}&take={TAKE}"  # pylint: disable=line-too-long
                 response = self.session.get(url)
                 response.raise_for_status()
                 publications_json = response.json()
@@ -305,6 +308,7 @@ class DateType(str, Enum):
         TABLED: Filter by the date the question was tabled
         ANSWERED: Filter by the date the question was answered
     """
+
     TABLED = "tabled"
     ANSWERED = "answered"
 
@@ -376,11 +380,10 @@ class ParliamentQuestionsAPIClient:
         """
         if question.complete_question and question.complete_answer:
             return question
-        else:
-            logger.info("Retrieving full question and answer from API")
-            metrics.add_metric(name="QuestionAPIRequest", unit="Count", value=1)
-            full_question = self.get_question_by_id(question.id)
-            return full_question
+        logger.info("Retrieving full question and answer from API")
+        metrics.add_metric(name="QuestionAPIRequest", unit="Count", value=1)
+        full_question = self.get_question_by_id(question.id)
+        return full_question
 
     def get_questions_by_date(
         self, date_type: DateType, start_date: date, end_date: date

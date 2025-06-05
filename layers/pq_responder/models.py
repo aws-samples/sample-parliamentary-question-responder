@@ -164,6 +164,7 @@ class Question(BaseModel):
             return True
         return not self.answer.endswith("...")
 
+    # pylint: disable=inconsistent-return-statements
     def _validate_date(self, value):
         """Validate and parse a date value.
         

@@ -3,8 +3,7 @@ import json
 import os
 import sys
 sys.path.append('.')
-sys.path.append(os.path.join(os.getcwd(), 'layers', 'pq-responder'))
-import boto3
+sys.path.append(os.path.join(os.getcwd(), 'layers', 'pq_responder'))
 
 from dateutil import parser
 

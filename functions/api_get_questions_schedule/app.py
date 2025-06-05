@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """
 Module for retrieving and queueing parliamentary questions.
 
@@ -141,14 +142,14 @@ def lambda_handler(
 
         if not default_days_to_retrieve:
             raise RuntimeError("Default Days to Retrieve missing")
-        
+
         ssm_client = SSMStorage(parameter_key=last_run_parameter)
         last_run = ssm_client.get_parameter()
         if last_run == "null":
             last_run = date.today() - timedelta(days=int(default_days_to_retrieve))
         else:
             last_run = last_run.date() if isinstance(last_run, datetime) else last_run
-            
+
         end_date = date.today()
 
         questions = get_questions_by_date(

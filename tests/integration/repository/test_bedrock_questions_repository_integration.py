@@ -3,7 +3,7 @@ import os
 
 import sys
 sys.path.append('.')
-sys.path.append(os.path.join(os.getcwd(), 'layers', 'pq-responder'))
+sys.path.append(os.path.join(os.getcwd(), 'layers', 'pq_responder'))
 
 from repositories import BedrockFlow
 
