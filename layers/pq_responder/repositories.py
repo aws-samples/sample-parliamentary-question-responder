@@ -5,6 +5,8 @@ question answering, similarity search, and content retrieval.
 """
 
 import json
+import random
+import time
 import uuid
 
 import boto3
@@ -59,37 +61,48 @@ class BedrockAgent:
             dict: Response containing completion text and session ID
 
         Raises:
-            ClientError: If the agent invocation fails
+            ClientError: If the agent invocation fails after retries
         """
         logger.debug(f"Suggesting answer to: {prompt}")
 
         if session_id is None:
             session_id = str(uuid.uuid4())
 
-        try:
-            response = bedrock_agent_runtime_client.invoke_agent(
-                agentId=self.agent_id,
-                agentAliasId=self.agent_alias_id,
-                inputText=prompt,
-                sessionId=session_id,
-            )
+        max_retries = 10
+        base_delay = 1
+        
+        for attempt in range(max_retries + 1):
+            try:
+                response = bedrock_agent_runtime_client.invoke_agent(
+                    agentId=self.agent_id,
+                    agentAliasId=self.agent_alias_id,
+                    inputText=prompt,
+                    sessionId=session_id,
+                )
 
-            completion = ""
+                completion = ""
+                for event in response.get("completion"):
+                    chunk = event["chunk"]
+                    completion = completion + chunk["bytes"].decode()
 
-            for event in response.get("completion"):
-                chunk = event["chunk"]
-                completion = completion + chunk["bytes"].decode()
+                return {
+                    "completion": completion,
+                    "sessionId": session_id,
+                }
 
-            method_response = {
-                "completion": completion,
-                "sessionId": session_id,
-            }
-
-            return method_response
-
-        except ClientError as e:
-            logger.warning("Couldn't invoke agent, %s", e)
-            raise e
+            except ClientError as e:
+                error_code = e.response['Error']['Code']
+                if error_code == 'throttlingException' and attempt < max_retries:
+                    # Exponential backoff with jitter
+                    delay = base_delay * (2 ** attempt) + random.uniform(0, 1)
+                    logger.warning(f"ThrottlingException on attempt {attempt + 1}, retrying in {delay:.2f}s")
+                    time.sleep(delay)
+                    continue
+                
+                logger.warning("Couldn't invoke agent, %s", e)
+                raise e
+        
+        return None
 
 
 # pylint: disable=too-few-public-methods
