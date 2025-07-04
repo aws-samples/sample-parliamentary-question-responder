@@ -56,6 +56,9 @@ Parameters:
     AllowedValues:
       - true
       - false
+  ApiIntegrationTimeout:
+    Type: Number
+    Default: 29000
 
 Conditions:
   ApplicationSignalsLayerVersion12: !Or [ !Equals [ !Ref AWS::Region, us-west-1 ], !Equals [ !Ref AWS::Region, us-west-2 ] ]
@@ -2171,6 +2174,7 @@ Resources:
             Path: /api/suggest-answer
             Method: post
             RestApiId: !Ref QuestionsRestAPI
+            TimeoutInMillis: !Ref ApiIntegrationTimeout
       Tags:
         LambdaPowertools: python
 

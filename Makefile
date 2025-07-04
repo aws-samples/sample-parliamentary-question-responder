@@ -15,6 +15,7 @@ AgentFoundationalModel := anthropic.claude-3-5-sonnet-20241022-v2:0
 UpdateQuestions ?= false
 DeployFrontend ?= true
 DeployIdp ?= true
+ApiIntegrationTimeout ?= 29000
 
 .PHONY : clean
 clean :
@@ -60,7 +61,8 @@ deploy-backend :
 				AgentFoundationalModel=${AgentFoundationalModel} \
 				UpdateQuestions=${UpdateQuestions} \
 				DeployFrontend=${DeployFrontend} \
-				DeployIdp=${DeployIdp}
+				DeployIdp=${DeployIdp} \
+				ApiIntegrationTimeout=${ApiIntegrationTimeout}
 
 .PHONY : sync-backend
 sync-backend : 
@@ -72,7 +74,9 @@ sync-backend :
 				AgentFoundationalModel=${AgentFoundationalModel}
 				UpdateQuestions=${UpdateQuestions} \
 				DeployFrontend=${DeployFrontend} \
-				DeployIdp=${DeployIdp}
+				DeployIdp=${DeployIdp} \
+				ApiIntegrationTimeout=${ApiIntegrationTimeout}
+
 
 .PHONY : delete-backend
 delete-backend: 
