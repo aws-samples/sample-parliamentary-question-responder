@@ -355,6 +355,9 @@ Resources:
       LoggingConfiguration:
         DestinationBucketName: !Ref LogBucket
         LogFilePrefix: s3-access/site-bucket/
+        TargetObjectKeyFormat:
+          PartitionedPrefix:
+            PartitionDateSource: EventTime
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
@@ -421,6 +424,9 @@ Resources:
       LoggingConfiguration:
         DestinationBucketName: !Ref LogBucket
         LogFilePrefix: s3-access/questions-bucket/
+        TargetObjectKeyFormat:
+          PartitionedPrefix:
+            PartitionDateSource: EventTime
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
@@ -472,6 +478,9 @@ Resources:
       LoggingConfiguration:
         DestinationBucketName: !Ref LogBucket
         LogFilePrefix: s3-access/content-bucket/
+        TargetObjectKeyFormat:
+          PartitionedPrefix:
+            PartitionDateSource: EventTime
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
@@ -1021,6 +1030,9 @@ Resources:
       LoggingConfiguration:
         DestinationBucketName: !Ref LogBucket
         LogFilePrefix: s3-access/athena-results-bucket/
+        TargetObjectKeyFormat:
+            PartitionedPrefix:
+              PartitionDateSource: EventTime
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
