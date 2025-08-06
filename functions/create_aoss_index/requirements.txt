@@ -1,4 +1,0 @@
-cfn_response
-requests_aws4auth
-opensearch-py
-crhelper

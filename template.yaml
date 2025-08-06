@@ -411,7 +411,6 @@ Resources:
                   aws:SourceArn: !Sub 'arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}'
             - !Ref AWS::NoValue
 
-
   QuestionsBucket:
     Metadata:
       guard:
@@ -661,56 +660,6 @@ Resources:
       ClientId: !Ref CognitoUserPoolClient
       UseCognitoProvidedValues: true
 
-  CreateAOSSIndexFunction:
-    Metadata:
-      checkov:
-        skip:
-          - id: CKV_AWS_116
-            comment: "Invoked synchronously by CFN Custom Resource"
-          - id: CKV_AWS_117
-            comment: "Not accessing any resources in VPC and only handling public non sensitive data"
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: app.lambda_handler
-      CodeUri: ./functions/create_aoss_index
-      Description: Create the index for the knowledge base
-      Timeout: 120
-      ReservedConcurrentExecutions: 2
-      LoggingConfig:
-        LogGroup: !Ref CreateAOSSIndexFunctionLogGroup
-      Environment:
-        Variables:
-          POWERTOOLS_SERVICE_NAME: CreateAOSSIndex
-          DOMAIN: !GetAtt KnowledgeBasesOpenSearchCollection.CollectionEndpoint
-      KmsKeyArn: !GetAtt EncryptionKey.Arn
-      Policies:
-        - Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Action:
-                - aoss:APIAccessAll 
-              Resource: !Sub arn:${AWS::Partition}:aoss:${AWS::Region}:${AWS::AccountId}:collection/${KnowledgeBasesOpenSearchCollection}
-      Tags:
-        LambdaPowertools: python
-
-  CreateAOSSIndexFunctionLogGroup:
-    Type: AWS::Logs::LogGroup
-    DeletionPolicy: Delete
-    UpdateReplacePolicy: Delete
-    Properties:
-      LogGroupName: !Sub /aws/lambda/${AWS::StackName}-CreateAOSSIndexFunction
-      RetentionInDays: 7
-      KmsKeyId: !GetAtt EncryptionKey.Arn
-
-  CreateAOSSIndexFunctionQuestionCustom:
-    DependsOn: 
-      - KnowledgeBaseOpenSearchAccessPolicy
-    Type: Custom::CreateAOSSIndexFunction
-    Properties:
-      ServiceToken: !GetAtt CreateAOSSIndexFunction.Arn
-      ServiceTimeout: 100
-      IndexName: !Ref QuestionIndexName
-
   KnowledgeBaseOpenSearchEncryptionPolicy:
     Type: AWS::OpenSearchServerless::SecurityPolicy
     Properties:
@@ -798,7 +747,6 @@ Resources:
                 }
               ],
               "Principal": [
-                "${CreateAOSSIndexFunctionRole.Arn}",
                 "${QuestionKnowledgeBaseExecutionRole.Arn}",
                 "${ContentKnowledgeBaseExecutionRole.Arn}",
                 "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/Admin"
@@ -816,6 +764,34 @@ Resources:
       Description: Knowledge Base Collection
       StandbyReplicas: DISABLED
       Type: VECTORSEARCH
+
+  QuestionIndex:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Type: AWS::OpenSearchServerless::Index
+    Properties:
+      CollectionEndpoint: !GetAtt KnowledgeBasesOpenSearchCollection.CollectionEndpoint
+      IndexName: !Ref QuestionIndexName
+      Settings:
+        Index:
+          Knn: true
+      Mappings: 
+        Properties:
+          vector:
+            Type: "knn_vector"
+            Dimension: 1024
+            Method:
+              Name: "hnsw"
+              Engine: "faiss"
+              Parameters:
+                M: 16
+                EfConstruction: 512
+              SpaceType: l2
+          text:
+            Type: "text"
+          metadata:
+            Type: "text"
+            Index: false
 
   QuestionKnowledgeBaseExecutionRole:
     Type: AWS::IAM::Role
@@ -875,7 +851,8 @@ Resources:
 
   QuestionKnowledgeBase:
     DependsOn:
-      - CreateAOSSIndexFunctionQuestionCustom
+      - QuestionIndex
+      - QuestionKnowledgeBaseExecutionPolicy
     Type: AWS::Bedrock::KnowledgeBase
     Properties:
       Name: !Sub ${AWS::StackName}-QuestionKB
@@ -891,9 +868,9 @@ Resources:
           CollectionArn: !GetAtt KnowledgeBasesOpenSearchCollection.Arn
           VectorIndexName: !Ref QuestionIndexName
           FieldMapping:
-            VectorField: !Sub ${QuestionIndexName}-vector
-            TextField: !Sub ${QuestionIndexName}-text
-            MetadataField: !Sub ${QuestionIndexName}-metadata
+            VectorField: vector
+            TextField: text
+            MetadataField: metadata
 
   QuestionKnowledgeBaseLogDeliverySource:
     Type: AWS::Logs::DeliverySource
@@ -1089,14 +1066,33 @@ Resources:
         ResultConfiguration:
           OutputLocation: !Sub "s3://${AthenaResultBucket}/"
 
-  CreateAOSSIndexFunctionContentCustom:
-    DependsOn: 
-      - KnowledgeBaseOpenSearchAccessPolicy
-    Type: Custom::CreateAOSSIndexFunction
+  ContentIndex:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Type: AWS::OpenSearchServerless::Index
     Properties:
-      ServiceToken: !GetAtt CreateAOSSIndexFunction.Arn
-      ServiceTimeout: 100
+      CollectionEndpoint: !GetAtt KnowledgeBasesOpenSearchCollection.CollectionEndpoint
       IndexName: !Ref ContentIndexName
+      Settings:
+        Index:
+          Knn: true
+      Mappings: 
+        Properties:
+          vector:
+            Type: "knn_vector"
+            Dimension: 1024
+            Method:
+              Name: "hnsw"
+              Engine: "faiss"
+              Parameters:
+                M: 16
+                EfConstruction: 512
+              SpaceType: l2
+          text:
+            Type: "text"
+          metadata:
+            Type: "text"
+            Index: false
 
   ContentKnowledgeBaseExecutionRole:
     Type: AWS::IAM::Role
@@ -1156,7 +1152,8 @@ Resources:
 
   ContentKnowledgeBase:
     DependsOn:
-      - CreateAOSSIndexFunctionContentCustom
+      - ContentIndex
+      - ContentKnowledgeBaseExecutionPolicy
     Type: AWS::Bedrock::KnowledgeBase
     Properties:
       Name: !Sub ${AWS::StackName}-ContentKB
@@ -1172,9 +1169,9 @@ Resources:
           CollectionArn: !GetAtt KnowledgeBasesOpenSearchCollection.Arn
           VectorIndexName: !Ref ContentIndexName
           FieldMapping:
-            VectorField: !Sub ${ContentIndexName}-vector
-            TextField: !Sub ${ContentIndexName}-text
-            MetadataField: !Sub ${ContentIndexName}-metadata
+            VectorField: vector
+            TextField: text
+            MetadataField: metadata
 
   ContentPublicationKnowledgeBaseDataSource:
     Type: AWS::Bedrock::DataSource
