@@ -88,21 +88,14 @@ delete-backend:
 	echo Sleeping to make sure all logs have been written
 	sleep 10
 
-	logGroupName=/aws/lambda/${stackName}-CreateAOSSIndexFunction
-	logGroupCount=$$(aws logs describe-log-groups --log-group-name-prefix $${logGroupName} | jq '.logGroups | length')
-	if [ $${logGroupCount} != 0 ]; \
-	then \
-		echo Deleting Log Group $${logGroupName}
-		aws logs delete-log-group --log-group-name $${logGroupName} ; \
-	fi
-
-	logGroupName=/aws/lambda/${stackName}-EmptyBucketFunction
-	logGroupCount=$$(aws logs describe-log-groups --log-group-name-prefix $${logGroupName} | jq '.logGroups | length')
-	if [ $${logGroupCount} != 0 ]; \
-	then \
-		echo Deleting Log Group $${logGroupName}
-		aws logs delete-log-group --log-group-name $${logGroupName} ; \
-	fi
+	# Delete all log groups for this stack
+	echo "Deleting all log groups with prefix /aws/lambda/${stackName}"
+	aws logs describe-log-groups --region ${awsRegion} --log-group-name-prefix "/aws/lambda/${stackName}-" | \
+	jq -r '.logGroups[].logGroupName' | \
+	while read -r logGroupName; do
+		echo "Deleting Log Group $${logGroupName}"
+		aws logs delete-log-group --log-group-name "$${logGroupName}"
+	done
 
 .PHONY : create-frontend-config
 create-frontend-config :
