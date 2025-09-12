@@ -19,7 +19,7 @@ Installation typically takes between 20-30 minutes.
 * AWS Account
     * Current shell authenticated to your AWS Account
     * Model access granted in target region (default `us-west-2`) for:
-        * `anthropic.claude-3-sonnet-20240229-v1:0`
+        * `anthropic.claude-sonnet-4-20250514-v1:0`
         * `amazon.titan-embed-text-v2:0`
 * AWS CLI
 * Python 3.13

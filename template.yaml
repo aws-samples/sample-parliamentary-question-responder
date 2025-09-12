@@ -31,12 +31,9 @@ Parameters:
   CommitteeBaseUri:
     Type: String
     Default: https://committees.parliament.uk/
-  GenerateInferenceProfile:
-    Type: String
-    Default: us.anthropic.claude-3-haiku-20240307-v1:0
   AgentFoundationalModel:
     Type: String
-    Default: us.anthropic.claude-3-haiku-20240307-v1:0
+    Default: us.anthropic.claude-sonnet-4-20250514-v1:0
   UpdateQuestions:
     Type: String
     Description: Should the newly answered questions be pulled from the Parliament API on a daily basis
@@ -177,6 +174,7 @@ Resources:
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-SaveQuestionFunction
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-SuggestAnswerFunction
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/vendedlogs/bedrock/knowledge-base/APPLICATION_LOGS/${AWS::StackName}-QuestionKB
+                - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/vendedlogs/bedrock/knowledge-base/APPLICATION_LOGS/${AWS::StackName}-ContentKB
           - Sid: Allow Lambda to use the key
             Effect: Allow
             Principal:
@@ -1176,6 +1174,53 @@ Resources:
             TextField: !Sub ${ContentIndexName}-text
             MetadataField: !Sub ${ContentIndexName}-metadata
 
+  ContentKnowledgeBaseLogDeliverySource:
+    Type: AWS::Logs::DeliverySource
+    Properties:
+      LogType: "APPLICATION_LOGS"
+      Name: !Sub ${ContentKnowledgeBase}-Source
+      ResourceArn: !GetAtt ContentKnowledgeBase.KnowledgeBaseArn
+
+  ContentKnowledgeBaseLogDeliveryDestination:
+    Type: AWS::Logs::DeliveryDestination
+    Properties:
+      Name: !Sub ${ContentKnowledgeBase}-Source
+      DestinationResourceArn: !GetAtt ContentKnowledgeBaseLogGroup.Arn
+
+  ContentKnowledgeBaseLogDelivery:
+    DependsOn: ContentKnowledgeBaseResourcePolicy
+    Type: AWS::Logs::Delivery
+    Properties:
+      DeliveryDestinationArn: !GetAtt ContentKnowledgeBaseLogDeliveryDestination.Arn
+      DeliverySourceName: !Ref ContentKnowledgeBaseLogDeliverySource
+
+  ContentKnowledgeBaseResourcePolicy:
+    Type: AWS::Logs::ResourcePolicy
+    Properties:
+      PolicyName: !Sub ${AWS::StackName}-ContentKnowledgeBaseResourcePolicy
+      PolicyDocument: 
+        Fn::ToJsonString: 
+          Version: "2012-10-17"
+          Statement:
+            - Sid: !Sub ${AWS::StackName}-LogDeliveryWritePolicy
+              Effect: Allow
+              Principal:
+                Service:
+                  - delivery.logs.amazonaws.com
+              Action: 
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+              Resource: !GetAtt ContentKnowledgeBaseLogGroup.Arn
+  
+  ContentKnowledgeBaseLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
+    Properties:
+      LogGroupName: !Sub /aws/vendedlogs/bedrock/knowledge-base/APPLICATION_LOGS/${AWS::StackName}-ContentKB
+      RetentionInDays: 7
+      KmsKeyId: !GetAtt EncryptionKey.Arn
+
   ContentPublicationKnowledgeBaseDataSource:
     Type: AWS::Bedrock::DataSource
     DependsOn: ContentBucketCustom
@@ -1311,6 +1356,7 @@ Resources:
       Handler: app.lambda_handler
       CodeUri: ./functions/build_content_kb_response
       Description: Retrieve records from KB and embed the source webURL in metadata
+      Timeout: 60
       LoggingConfig:
         LogGroup: !Ref BuildContentKBResponseLogGroup
       Layers:
@@ -1492,7 +1538,7 @@ Resources:
     Type: AWS::Bedrock::AgentAlias
     Properties:
       AgentId: !Ref SuggestAnswerAgent
-      AgentAliasName: !Sub ${AWS::StackName}-SuggestAnswerAgentAlias
+      AgentAliasName: !Sub ${AWS::StackName}-SuggestAnswerAgentAlias-1
       Description: !Sub ${AWS::StackName} SuggestAnswerAgentAlias
 
   #################################
