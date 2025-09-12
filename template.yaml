@@ -1344,6 +1344,7 @@ Resources:
       Handler: app.lambda_handler
       CodeUri: ./functions/build_content_kb_response
       Description: Retrieve records from KB and embed the source webURL in metadata
+      Timeout: 60
       LoggingConfig:
         LogGroup: !Ref BuildContentKBResponseLogGroup
       Layers:
