@@ -10,8 +10,7 @@ awsRegion ?= us-west-2
 AWS_DEFAULT_REGION := ${awsRegion}
 frontendConfigJson := ./frontend/src/config.json
 packageJson := ./frontend/package.json
-GenerateInferenceProfile := us.anthropic.claude-3-5-sonnet-20241022-v2:0 
-AgentFoundationalModel := anthropic.claude-3-5-sonnet-20241022-v2:0
+AgentFoundationalModel := us.anthropic.claude-sonnet-4-20250514-v1:0
 UpdateQuestions ?= false
 DeployFrontend ?= true
 DeployIdp ?= true
@@ -57,7 +56,6 @@ deploy-backend :
 		--no-disable-rollback \
 		--parameter-overrides \
 				EnableAPIGLogging=true  \
-				GenerateInferenceProfile=${GenerateInferenceProfile} \
 				AgentFoundationalModel=${AgentFoundationalModel} \
 				UpdateQuestions=${UpdateQuestions} \
 				DeployFrontend=${DeployFrontend} \
@@ -70,7 +68,6 @@ sync-backend :
 		--stack-name=${stackName} \
 		--parameter-overrides \
 				EnableAPIGLogging=true \
-				GenerateInferenceProfile=${GenerateInferenceProfile} \
 				AgentFoundationalModel=${AgentFoundationalModel}
 				UpdateQuestions=${UpdateQuestions} \
 				DeployFrontend=${DeployFrontend} \
