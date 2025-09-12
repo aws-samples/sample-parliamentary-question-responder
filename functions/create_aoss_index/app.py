@@ -117,7 +117,7 @@ def create_index(index_name: str):
         # amazonq-ignore-next-line
         logger.info("Creating index: %s", json.dumps(body))
 
-        response = aoss_client.indices.create(index_name, body)
+        response = aoss_client.indices.create(index=index_name, body=body)
         logger.info("Created index: %s", response)
 
         logger.info("Sleeping to give time for the index to be created")
