@@ -166,6 +166,7 @@ Resources:
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-APIGetQuestionsFunction
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-BuildContentKBResponse
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-CreateAOSSIndexFunction
+                - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-DelayFunction
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-EmptyBucketFunction
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-FindSimilarQuestionsFunction
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-ProcessPublicationsFunction
@@ -281,6 +282,36 @@ Resources:
     UpdateReplacePolicy: Delete
     Properties:
       LogGroupName: !Sub /aws/lambda/${AWS::StackName}-EmptyBucketFunction
+      RetentionInDays: 7
+      KmsKeyId: !GetAtt EncryptionKey.Arn
+
+  DelayFunction:
+    Metadata:
+      checkov:
+        skip:
+          - id: CKV_AWS_116
+            comment: "Invoked synchronously by CFN Custom Resource"
+          - id: CKV_AWS_117
+            comment: "Not accessing any resources in VPC and only handling public non sensitive data"
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./functions/delay
+      Handler: app.lambda_handler
+      Timeout: 900
+      ReservedConcurrentExecutions: 2
+      LoggingConfig:
+        LogGroup: !Ref DelayFunctionLogGroup
+      Environment:
+        Variables:
+          POWERTOOLS_SERVICE_NAME: Delay
+      KmsKeyArn: !GetAtt EncryptionKey.Arn
+
+  DelayFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${AWS::StackName}-DelayFunction
       RetentionInDays: 7
       KmsKeyId: !GetAtt EncryptionKey.Arn
 
@@ -729,7 +760,8 @@ Resources:
                     "aoss:DescribeIndex",
                     "aoss:ReadDocument",
                     "aoss:WriteDocument",
-                    "aoss:CreateIndex"
+                    "aoss:CreateIndex",
+                    "aoss:DeleteIndex"
                   ]
                 },
                 {
@@ -847,9 +879,16 @@ Resources:
               - kms:GenerateDataKey
             Resource: !GetAtt EncryptionKey.Arn
 
+  QuestionIndexDelay:
+    Type: Custom::Delay
+    DependsOn: QuestionIndex
+    Properties:
+      ServiceToken: !GetAtt DelayFunction.Arn
+      SleepSeconds: 60
+
   QuestionKnowledgeBase:
     DependsOn:
-      - QuestionIndex
+      - QuestionIndexDelay
       - QuestionKnowledgeBaseExecutionPolicy
     Type: AWS::Bedrock::KnowledgeBase
     Properties:
@@ -1148,9 +1187,16 @@ Resources:
               - kms:GenerateDataKey
             Resource: !GetAtt EncryptionKey.Arn
 
+  ContentIndexDelay:
+    Type: Custom::Delay
+    DependsOn: ContentIndex
+    Properties:
+      ServiceToken: !GetAtt DelayFunction.Arn
+      SleepSeconds: 60
+
   ContentKnowledgeBase:
     DependsOn:
-      - ContentIndex
+      - ContentIndexDelay
       - ContentKnowledgeBaseExecutionPolicy
     Type: AWS::Bedrock::KnowledgeBase
     Properties:
