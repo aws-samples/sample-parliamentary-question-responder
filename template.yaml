@@ -383,7 +383,7 @@ Resources:
     Properties:
       LoggingConfiguration:
         DestinationBucketName: !Ref LogBucket
-        LogFilePrefix: s3-access/site-bucket/
+        LogFilePrefix: s3-access/
         TargetObjectKeyFormat:
           PartitionedPrefix:
             PartitionDateSource: EventTime
@@ -451,7 +451,7 @@ Resources:
     Properties:
       LoggingConfiguration:
         DestinationBucketName: !Ref LogBucket
-        LogFilePrefix: s3-access/questions-bucket/
+        LogFilePrefix: s3-access/
         TargetObjectKeyFormat:
           PartitionedPrefix:
             PartitionDateSource: EventTime
@@ -505,7 +505,7 @@ Resources:
     Properties:
       LoggingConfiguration:
         DestinationBucketName: !Ref LogBucket
-        LogFilePrefix: s3-access/content-bucket/
+        LogFilePrefix: s3-access/
         TargetObjectKeyFormat:
           PartitionedPrefix:
             PartitionDateSource: EventTime
@@ -1043,7 +1043,7 @@ Resources:
     Properties:
       LoggingConfiguration:
         DestinationBucketName: !Ref LogBucket
-        LogFilePrefix: s3-access/athena-results-bucket/
+        LogFilePrefix: s3-access/
         TargetObjectKeyFormat:
             PartitionedPrefix:
               PartitionDateSource: EventTime
