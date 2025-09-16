@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: MIT-0
 
 import ChatBubble from '@cloudscape-design/chat-components/chat-bubble';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { ChatBubbleAvatar } from './common-components';
 import { AUTHORS, Message } from './config';
 
@@ -32,6 +34,14 @@ export default function Messages({ messages = [], authorInfo: {username, initial
           author.name = username;
         }
 
+        const content = author.type === 'gen-ai' && typeof message.content === 'string' ? (
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {message.content}
+          </ReactMarkdown>
+        ) : (
+          message.content
+        );
+
         return (
           <ChatBubble
             key={message.authorId + message.timestamp}
@@ -41,7 +51,7 @@ export default function Messages({ messages = [], authorInfo: {username, initial
             hideAvatar={message.hideAvatar}
             actions={message.actions}
           >
-            {message.content}
+            {content}
           </ChatBubble>
         );
       })}
