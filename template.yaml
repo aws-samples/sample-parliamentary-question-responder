@@ -638,6 +638,11 @@ Resources:
           AllowedFirstAuthFactors:
             - WEB_AUTHN
             - PASSWORD
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: !If
+          - DeployIdpCondition
+          - False
+          - True
 
   CognitoUserPoolClient:
     Type: AWS::Cognito::UserPoolClient
