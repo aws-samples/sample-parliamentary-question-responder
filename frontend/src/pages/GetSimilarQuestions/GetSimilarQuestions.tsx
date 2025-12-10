@@ -102,16 +102,23 @@ const GetSimilarQuestions = (props: {auth: AuthContextProps}) => {
             }
         >
             <SpaceBetween size="m">
-                <Container> 
-                    <FormField
-                        label="Enter a question"
-                    >
-                        <Input
-                            onChange={(detail:any) => setQuestion(detail.detail.value)}
-                            placeholder="ex: What is the current cost for UK students in universities?"
-                            value={question}
-                        />
-                    </FormField>
+                <Container>
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        if (question.length > 0 && !loading) {
+                            handleSubmit();
+                        }
+                    }}>
+                        <FormField
+                            label="Enter a question"
+                        >
+                            <Input
+                                onChange={(detail:any) => setQuestion(detail.detail.value)}
+                                placeholder="ex: What is the current cost for UK students in universities?"
+                                value={question}
+                            />
+                        </FormField>
+                    </form>
                 </Container>
                 <Header 
                     actions={
