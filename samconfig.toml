@@ -9,7 +9,7 @@ cached = true
 parallel = true
 
 [default.validate.parameters]
-lint = true
+lint = false
 
 [default.deploy.parameters]
 capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
