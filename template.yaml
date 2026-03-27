@@ -165,8 +165,6 @@ Resources:
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-APIGetCommitteePublicationsFunction
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-APIGetQuestionsFunction
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-BuildContentKBResponse
-                - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-CreateAOSSIndexFunction
-                - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-DelayFunction
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-EmptyBucketFunction
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-FindSimilarQuestionsFunction
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-ProcessPublicationsFunction
@@ -174,8 +172,8 @@ Resources:
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-SavePublicationFunction
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-SaveQuestionFunction
                 - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${AWS::StackName}-SuggestAnswerFunction
-                - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/vendedlogs/bedrock/knowledge-base/APPLICATION_LOGS/${AWS::StackName}-QuestionKB
-                - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/vendedlogs/bedrock/knowledge-base/APPLICATION_LOGS/${AWS::StackName}-ContentKB
+                - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/vendedlogs/bedrock/knowledge-base/APPLICATION_LOGS/${AWS::StackName}-QuestionKB-s3v
+                - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/vendedlogs/bedrock/knowledge-base/APPLICATION_LOGS/${AWS::StackName}-ContentKB-s3v
           - Sid: Allow Lambda to use the key
             Effect: Allow
             Principal:
@@ -214,19 +212,22 @@ Resources:
                 aws:SourceAccount: !Ref AWS::AccountId
               ArnLike:
                 aws:SourceArn: !Sub arn:${AWS::Partition}:bedrock:${AWS::Region}:${AWS::AccountId}:agent/*
-          - Sid: Allow AOSS to use the key
+          - Sid: Allow S3 Vectors indexing to use the key
             Effect: Allow
             Principal:
-              Service: aoss.amazonaws.com
+              Service: indexing.s3vectors.amazonaws.com
             Action:
               - kms:Decrypt
-              - kms:GenerateDataKey
             Resource: '*'
             Condition:
+              ArnLike:
+                aws:SourceArn: !Sub arn:aws:s3vectors:${AWS::Region}:${AWS::AccountId}:bucket/*
               StringEquals:
                 aws:SourceAccount: !Ref AWS::AccountId
-              ArnLike:
-                aws:SourceArn: !Sub arn:${AWS::Partition}:aoss:${AWS::Region}:${AWS::AccountId}:collection/*
+              ForAnyValue:StringEquals:
+                kms:EncryptionContextKeys:
+                  - "aws:s3vectors:arn"
+                  - "aws:s3vectors:resource-id"
 
   EncryptionKeyAlias:
     Type: AWS::KMS::Alias
@@ -282,36 +283,6 @@ Resources:
     UpdateReplacePolicy: Delete
     Properties:
       LogGroupName: !Sub /aws/lambda/${AWS::StackName}-EmptyBucketFunction
-      RetentionInDays: 7
-      KmsKeyId: !GetAtt EncryptionKey.Arn
-
-  DelayFunction:
-    Metadata:
-      checkov:
-        skip:
-          - id: CKV_AWS_116
-            comment: "Invoked synchronously by CFN Custom Resource"
-          - id: CKV_AWS_117
-            comment: "Not accessing any resources in VPC and only handling public non sensitive data"
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: ./functions/delay
-      Handler: app.lambda_handler
-      Timeout: 900
-      ReservedConcurrentExecutions: 2
-      LoggingConfig:
-        LogGroup: !Ref DelayFunctionLogGroup
-      Environment:
-        Variables:
-          POWERTOOLS_SERVICE_NAME: Delay
-      KmsKeyArn: !GetAtt EncryptionKey.Arn
-
-  DelayFunctionLogGroup:
-    Type: AWS::Logs::LogGroup
-    DeletionPolicy: Delete
-    UpdateReplacePolicy: Delete
-    Properties:
-      LogGroupName: !Sub /aws/lambda/${AWS::StackName}-DelayFunction
       RetentionInDays: 7
       KmsKeyId: !GetAtt EncryptionKey.Arn
 
@@ -694,141 +665,27 @@ Resources:
       ClientId: !Ref CognitoUserPoolClient
       UseCognitoProvidedValues: true
 
-  KnowledgeBaseOpenSearchEncryptionPolicy:
-    Type: AWS::OpenSearchServerless::SecurityPolicy
+  KnowledgeBaseVectorBucket:
+    Type: AWS::S3Vectors::VectorBucket
     Properties:
-      Name: !Sub ${AWS::StackName}-kb-encryption
-      Description: "A policy to encrypt using KMS managed key"
-      Type: encryption
-      Policy: 
-        !Sub >-
-          {
-            "Rules":[
-              {
-                "ResourceType":"collection",
-                "Resource":[
-                  "collection/${AWS::StackName}-kb"
-                ]
-              }
-            ],
-            "AWSOwnedKey": false,
-            "KmsARN": "${EncryptionKey.Arn}"
-          }
+      VectorBucketName: !Sub ${AWS::StackName}-kb-vectors
+      EncryptionConfiguration:
+        SseType: "aws:kms"
+        KmsKeyArn: !GetAtt EncryptionKey.Arn
 
-  KnowledgeBaseOpenSearchNetworkPolicy:
-    Type: AWS::OpenSearchServerless::SecurityPolicy
+  QuestionVectorIndex:
+    Type: AWS::S3Vectors::Index
     Properties:
-      Name: !Sub ${AWS::StackName}-kb-network
-      Description: "A policy to allow access to OpenSearchServerless collection"
-      Type: network
-      Policy: 
-        !Sub >-
-          [
-            {
-              "Rules":[
-                {
-                  "ResourceType":"collection",
-                  "Resource": [
-                    "collection/${AWS::StackName}-kb"
-                  ]
-                },
-                {
-                  "ResourceType":"dashboard",
-                  "Resource": [
-                    "collection/${AWS::StackName}-kb"
-                  ]
-                }
-              ],
-              "AllowFromPublic":true
-            }
-          ]
-
-  KnowledgeBaseOpenSearchAccessPolicy:
-    Type: AWS::OpenSearchServerless::AccessPolicy
-    Properties:
-      Name: !Sub ${AWS::StackName}-kb-access
-      Description: "A policy to allow access to OpenSearchServerless collection"
-      Type: data
-      Policy: 
-        !Sub >-
-          [
-            {
-              "Description": "Access for Lambda to create index",
-              "Rules": [
-                {
-                  "ResourceType": "index",
-                  "Resource": [
-                    "index/${AWS::StackName}-kb/*"
-                  ],
-                  "Permission": [
-                    "aoss:UpdateIndex",
-                    "aoss:DescribeIndex",
-                    "aoss:ReadDocument",
-                    "aoss:WriteDocument",
-                    "aoss:CreateIndex",
-                    "aoss:DeleteIndex"
-                  ]
-                },
-                {
-                  "ResourceType": "collection",
-                  "Resource": [
-                    "collection/${AWS::StackName}-kb"
-                  ],
-                  "Permission": [
-                    "aoss:DescribeCollectionItems",
-                    "aoss:CreateCollectionItems",
-                    "aoss:UpdateCollectionItems"
-                  ]
-                }
-              ],
-              "Principal": [
-                "${QuestionKnowledgeBaseExecutionRole.Arn}",
-                "${ContentKnowledgeBaseExecutionRole.Arn}",
-                "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/Admin"
-              ]
-            }
-          ]
-
-  KnowledgeBasesOpenSearchCollection:
-    DependsOn: 
-      - KnowledgeBaseOpenSearchEncryptionPolicy
-      - KnowledgeBaseOpenSearchNetworkPolicy
-    Type: AWS::OpenSearchServerless::Collection
-    Properties:
-      Name: !Sub ${AWS::StackName}-kb
-      Description: Knowledge Base Collection
-      StandbyReplicas: DISABLED
-      Type: VECTORSEARCH
-
-  QuestionIndex:
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
-    Type: AWS::OpenSearchServerless::Index
-    Properties:
-      CollectionEndpoint: !GetAtt KnowledgeBasesOpenSearchCollection.CollectionEndpoint
+      VectorBucketArn: !GetAtt KnowledgeBaseVectorBucket.VectorBucketArn
       IndexName: !Ref QuestionIndexName
-      Settings:
-        Index:
-          Knn: true
-      Mappings: 
-        Properties:
-          vector:
-            Type: "knn_vector"
-            Dimension: 1024
-            Method:
-              Name: "hnsw"
-              Engine: "faiss"
-              Parameters:
-                M: 16
-                EfConstruction: 512
-              SpaceType: l2
-          text:
-            Type: "text"
-          metadata:
-            Type: "text"
-            Index: false
+      Dimension: 1024
+      DataType: float32
+      DistanceMetric: cosine
+      MetadataConfiguration:
+        NonFilterableMetadataKeys:
+          - "AMAZON_BEDROCK_TEXT"
 
-  QuestionKnowledgeBaseExecutionRole:
+  QuestionKBExecutionRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -848,11 +705,11 @@ Resources:
       Description: "Role for the QuestionKnowledgeBase"
       Path: "/service-role/"
 
-  QuestionKnowledgeBaseExecutionPolicy:
+  QuestionKBExecutionPolicy:
     Type: AWS::IAM::ManagedPolicy
     Properties:
       Roles:
-        - !Ref QuestionKnowledgeBaseExecutionRole
+        - !Ref QuestionKBExecutionRole
       Description: "Policy for the QuestionKnowledgeBase"
       Path: "/service-policies/"
       PolicyDocument:
@@ -862,8 +719,13 @@ Resources:
             Action: bedrock:InvokeModel
             Resource: !Sub "arn:${AWS::Partition}:bedrock:${AWS::Region}::foundation-model/amazon.titan-embed-text-v2:0"
           - Effect: Allow
-            Action: aoss:APIAccessAll
-            Resource: !GetAtt KnowledgeBasesOpenSearchCollection.Arn
+            Action:
+              - s3vectors:QueryVectors
+              - s3vectors:GetVectors
+              - s3vectors:PutVectors
+              - s3vectors:DeleteVectors
+              - s3vectors:ListVectors
+            Resource: !GetAtt QuestionVectorIndex.IndexArn
           - Effect: Allow
             Action: s3:ListBucket
             Resource: !GetAtt QuestionsBucket.Arn
@@ -884,60 +746,48 @@ Resources:
               - kms:GenerateDataKey
             Resource: !GetAtt EncryptionKey.Arn
 
-  QuestionIndexDelay:
-    Type: Custom::Delay
-    DependsOn: QuestionIndex
-    Properties:
-      ServiceToken: !GetAtt DelayFunction.Arn
-      SleepSeconds: 60
-
-  QuestionKnowledgeBase:
+  QuestionKB:
     DependsOn:
-      - QuestionIndexDelay
-      - QuestionKnowledgeBaseExecutionPolicy
+      - QuestionKBExecutionPolicy
     Type: AWS::Bedrock::KnowledgeBase
     Properties:
-      Name: !Sub ${AWS::StackName}-QuestionKB
+      Name: !Sub ${AWS::StackName}-QuestionKB-s3v
       Description: Knowledge Base for Questions
-      RoleArn: !GetAtt QuestionKnowledgeBaseExecutionRole.Arn
+      RoleArn: !GetAtt QuestionKBExecutionRole.Arn
       KnowledgeBaseConfiguration:
         Type: "VECTOR"
         VectorKnowledgeBaseConfiguration:
           EmbeddingModelArn: !Sub "arn:${AWS::Partition}:bedrock:${AWS::Region}::foundation-model/amazon.titan-embed-text-v2:0"
       StorageConfiguration:
-        Type: "OPENSEARCH_SERVERLESS"
-        OpensearchServerlessConfiguration:
-          CollectionArn: !GetAtt KnowledgeBasesOpenSearchCollection.Arn
-          VectorIndexName: !Ref QuestionIndexName
-          FieldMapping:
-            VectorField: vector
-            TextField: text
-            MetadataField: metadata
+        Type: "S3_VECTORS"
+        S3VectorsConfiguration:
+          VectorBucketArn: !GetAtt KnowledgeBaseVectorBucket.VectorBucketArn
+          IndexArn: !GetAtt QuestionVectorIndex.IndexArn
 
-  QuestionKnowledgeBaseLogDeliverySource:
+  QuestionKBLogDeliverySource:
     Type: AWS::Logs::DeliverySource
     Properties:
       LogType: "APPLICATION_LOGS"
-      Name: !Sub ${QuestionKnowledgeBase}-Source
-      ResourceArn: !GetAtt QuestionKnowledgeBase.KnowledgeBaseArn
+      Name: !Sub ${QuestionKB}-Source
+      ResourceArn: !GetAtt QuestionKB.KnowledgeBaseArn
 
-  QuestionKnowledgeBaseLogDeliveryDestination:
+  QuestionKBLogDeliveryDestination:
     Type: AWS::Logs::DeliveryDestination
     Properties:
-      Name: !Sub ${QuestionKnowledgeBase}-Source
-      DestinationResourceArn: !GetAtt QuestionKnowledgeBaseLogGroup.Arn
+      Name: !Sub ${QuestionKB}-Destination
+      DestinationResourceArn: !GetAtt QuestionKBLogGroup.Arn
 
-  QuestionKnowledgeBaseLogDelivery:
-    DependsOn: QuestionKnowledgeBaseResourcePolicy
+  QuestionKBLogDelivery:
+    DependsOn: QuestionKBResourcePolicy
     Type: AWS::Logs::Delivery
     Properties:
-      DeliveryDestinationArn: !GetAtt QuestionKnowledgeBaseLogDeliveryDestination.Arn
-      DeliverySourceName: !Ref QuestionKnowledgeBaseLogDeliverySource
+      DeliveryDestinationArn: !GetAtt QuestionKBLogDeliveryDestination.Arn
+      DeliverySourceName: !Ref QuestionKBLogDeliverySource
 
-  QuestionKnowledgeBaseResourcePolicy:
+  QuestionKBResourcePolicy:
     Type: AWS::Logs::ResourcePolicy
     Properties:
-      PolicyName: !Sub ${AWS::StackName}-QuestionKnowledgeBaseResourcePolicy
+      PolicyName: !Sub ${AWS::StackName}-QuestionKBResourcePolicy
       PolicyDocument: 
         Fn::ToJsonString: 
           Version: "2012-10-17"
@@ -950,25 +800,25 @@ Resources:
               Action: 
                 - logs:CreateLogStream
                 - logs:PutLogEvents
-              Resource: !GetAtt QuestionKnowledgeBaseLogGroup.Arn
+              Resource: !GetAtt QuestionKBLogGroup.Arn
   
-  QuestionKnowledgeBaseLogGroup:
+  QuestionKBLogGroup:
     Type: AWS::Logs::LogGroup
     DeletionPolicy: Delete
     UpdateReplacePolicy: Delete
     Properties:
-      LogGroupName: !Sub /aws/vendedlogs/bedrock/knowledge-base/APPLICATION_LOGS/${AWS::StackName}-QuestionKB
+      LogGroupName: !Sub /aws/vendedlogs/bedrock/knowledge-base/APPLICATION_LOGS/${AWS::StackName}-QuestionKB-s3v
       RetentionInDays: 7
       KmsKeyId: !GetAtt EncryptionKey.Arn
 
-  QuestionKnowledgeBaseDataSource:
+  QuestionKBDataSource:
     Type: AWS::Bedrock::DataSource
     DependsOn: QuestionsBucketCustom
     Properties:
       Name: !Sub ${AWS::StackName}-QuestionKBDataSource
       Description: Data source for Question Knowledge Base
-      KnowledgeBaseId: !Ref QuestionKnowledgeBase
-      DataDeletionPolicy: RETAIN # Speed up the deletion of the data source as the index is going to be destroyed as well
+      KnowledgeBaseId: !Ref QuestionKB
+      DataDeletionPolicy: RETAIN
       DataSourceConfiguration:
         Type: "S3"
         S3Configuration:
@@ -1108,35 +958,19 @@ Resources:
         ResultConfiguration:
           OutputLocation: !Sub "s3://${AthenaResultBucket}/"
 
-  ContentIndex:
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
-    Type: AWS::OpenSearchServerless::Index
+  ContentVectorIndex:
+    Type: AWS::S3Vectors::Index
     Properties:
-      CollectionEndpoint: !GetAtt KnowledgeBasesOpenSearchCollection.CollectionEndpoint
+      VectorBucketArn: !GetAtt KnowledgeBaseVectorBucket.VectorBucketArn
       IndexName: !Ref ContentIndexName
-      Settings:
-        Index:
-          Knn: true
-      Mappings: 
-        Properties:
-          vector:
-            Type: "knn_vector"
-            Dimension: 1024
-            Method:
-              Name: "hnsw"
-              Engine: "faiss"
-              Parameters:
-                M: 16
-                EfConstruction: 512
-              SpaceType: l2
-          text:
-            Type: "text"
-          metadata:
-            Type: "text"
-            Index: false
+      Dimension: 1024
+      DataType: float32
+      DistanceMetric: cosine
+      MetadataConfiguration:
+        NonFilterableMetadataKeys:
+          - "AMAZON_BEDROCK_TEXT"
 
-  ContentKnowledgeBaseExecutionRole:
+  ContentKBExecutionRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -1156,11 +990,11 @@ Resources:
       Description: "Role for the ContentKnowledgeBase"
       Path: "/service-role/"
 
-  ContentKnowledgeBaseExecutionPolicy:
+  ContentKBExecutionPolicy:
     Type: AWS::IAM::ManagedPolicy
     Properties:
       Roles:
-        - !Ref ContentKnowledgeBaseExecutionRole
+        - !Ref ContentKBExecutionRole
       Description: "Policy for the ContentKnowledgeBase"
       Path: "/service-policies/"
       PolicyDocument:
@@ -1170,8 +1004,13 @@ Resources:
             Action: bedrock:InvokeModel
             Resource: !Sub "arn:${AWS::Partition}:bedrock:${AWS::Region}::foundation-model/amazon.titan-embed-text-v2:0"
           - Effect: Allow
-            Action: aoss:APIAccessAll
-            Resource: !GetAtt KnowledgeBasesOpenSearchCollection.Arn
+            Action:
+              - s3vectors:QueryVectors
+              - s3vectors:GetVectors
+              - s3vectors:PutVectors
+              - s3vectors:DeleteVectors
+              - s3vectors:ListVectors
+            Resource: !GetAtt ContentVectorIndex.IndexArn
           - Effect: Allow
             Action: s3:ListBucket
             Resource: !GetAtt ContentBucket.Arn
@@ -1192,60 +1031,48 @@ Resources:
               - kms:GenerateDataKey
             Resource: !GetAtt EncryptionKey.Arn
 
-  ContentIndexDelay:
-    Type: Custom::Delay
-    DependsOn: ContentIndex
-    Properties:
-      ServiceToken: !GetAtt DelayFunction.Arn
-      SleepSeconds: 60
-
-  ContentKnowledgeBase:
+  ContentKB:
     DependsOn:
-      - ContentIndexDelay
-      - ContentKnowledgeBaseExecutionPolicy
+      - ContentKBExecutionPolicy
     Type: AWS::Bedrock::KnowledgeBase
     Properties:
-      Name: !Sub ${AWS::StackName}-ContentKB
+      Name: !Sub ${AWS::StackName}-ContentKB-s3v
       Description: Knowledge Base for Content
-      RoleArn: !GetAtt ContentKnowledgeBaseExecutionRole.Arn
+      RoleArn: !GetAtt ContentKBExecutionRole.Arn
       KnowledgeBaseConfiguration:
         Type: "VECTOR"
         VectorKnowledgeBaseConfiguration:
           EmbeddingModelArn: !Sub "arn:${AWS::Partition}:bedrock:${AWS::Region}::foundation-model/amazon.titan-embed-text-v2:0"
       StorageConfiguration:
-        Type: "OPENSEARCH_SERVERLESS"
-        OpensearchServerlessConfiguration:
-          CollectionArn: !GetAtt KnowledgeBasesOpenSearchCollection.Arn
-          VectorIndexName: !Ref ContentIndexName
-          FieldMapping:
-            VectorField: vector
-            TextField: text
-            MetadataField: metadata
+        Type: "S3_VECTORS"
+        S3VectorsConfiguration:
+          VectorBucketArn: !GetAtt KnowledgeBaseVectorBucket.VectorBucketArn
+          IndexArn: !GetAtt ContentVectorIndex.IndexArn
 
-  ContentKnowledgeBaseLogDeliverySource:
+  ContentKBLogDeliverySource:
     Type: AWS::Logs::DeliverySource
     Properties:
       LogType: "APPLICATION_LOGS"
-      Name: !Sub ${ContentKnowledgeBase}-Source
-      ResourceArn: !GetAtt ContentKnowledgeBase.KnowledgeBaseArn
+      Name: !Sub ${ContentKB}-Source
+      ResourceArn: !GetAtt ContentKB.KnowledgeBaseArn
 
-  ContentKnowledgeBaseLogDeliveryDestination:
+  ContentKBLogDeliveryDestination:
     Type: AWS::Logs::DeliveryDestination
     Properties:
-      Name: !Sub ${ContentKnowledgeBase}-Source
-      DestinationResourceArn: !GetAtt ContentKnowledgeBaseLogGroup.Arn
+      Name: !Sub ${ContentKB}-Destination
+      DestinationResourceArn: !GetAtt ContentKBLogGroup.Arn
 
-  ContentKnowledgeBaseLogDelivery:
-    DependsOn: ContentKnowledgeBaseResourcePolicy
+  ContentKBLogDelivery:
+    DependsOn: ContentKBResourcePolicy
     Type: AWS::Logs::Delivery
     Properties:
-      DeliveryDestinationArn: !GetAtt ContentKnowledgeBaseLogDeliveryDestination.Arn
-      DeliverySourceName: !Ref ContentKnowledgeBaseLogDeliverySource
+      DeliveryDestinationArn: !GetAtt ContentKBLogDeliveryDestination.Arn
+      DeliverySourceName: !Ref ContentKBLogDeliverySource
 
-  ContentKnowledgeBaseResourcePolicy:
+  ContentKBResourcePolicy:
     Type: AWS::Logs::ResourcePolicy
     Properties:
-      PolicyName: !Sub ${AWS::StackName}-ContentKnowledgeBaseResourcePolicy
+      PolicyName: !Sub ${AWS::StackName}-ContentKBResourcePolicy
       PolicyDocument: 
         Fn::ToJsonString: 
           Version: "2012-10-17"
@@ -1258,25 +1085,25 @@ Resources:
               Action: 
                 - logs:CreateLogStream
                 - logs:PutLogEvents
-              Resource: !GetAtt ContentKnowledgeBaseLogGroup.Arn
+              Resource: !GetAtt ContentKBLogGroup.Arn
   
-  ContentKnowledgeBaseLogGroup:
+  ContentKBLogGroup:
     Type: AWS::Logs::LogGroup
     DeletionPolicy: Delete
     UpdateReplacePolicy: Delete
     Properties:
-      LogGroupName: !Sub /aws/vendedlogs/bedrock/knowledge-base/APPLICATION_LOGS/${AWS::StackName}-ContentKB
+      LogGroupName: !Sub /aws/vendedlogs/bedrock/knowledge-base/APPLICATION_LOGS/${AWS::StackName}-ContentKB-s3v
       RetentionInDays: 7
       KmsKeyId: !GetAtt EncryptionKey.Arn
 
-  ContentPublicationKnowledgeBaseDataSource:
+  ContentPublicationKBDataSource:
     Type: AWS::Bedrock::DataSource
     DependsOn: ContentBucketCustom
     Properties:
       Name: !Sub ${AWS::StackName}-PublicationContentKBDataSource
       Description: Data source for Publication Content Knowledge Base
-      KnowledgeBaseId: !Ref ContentKnowledgeBase
-      DataDeletionPolicy: RETAIN # Speed up the deletion of the data source as the index is going to be destroyed as well
+      KnowledgeBaseId: !Ref ContentKB
+      DataDeletionPolicy: RETAIN
       DataSourceConfiguration:
         Type: "S3"
         S3Configuration:
@@ -1323,7 +1150,7 @@ Resources:
           - Effect: Allow
             Action: bedrock:Retrieve
             Resource: 
-            - !GetAtt QuestionKnowledgeBase.KnowledgeBaseArn
+            - !GetAtt QuestionKB.KnowledgeBaseArn
 
   SimilarQuestionsFlow:
     Type: AWS::Bedrock::Flow
@@ -1349,7 +1176,7 @@ Resources:
                 Type: Array
             Configuration:
               KnowledgeBase:
-                KnowledgeBaseId: !Ref QuestionKnowledgeBase
+                KnowledgeBaseId: !Ref QuestionKB
           - Type: Output
             Name: End
             Inputs: 
@@ -1412,7 +1239,7 @@ Resources:
       Environment:
         Variables:
           POWERTOOLS_SERVICE_NAME: BuildContentKBResponse
-          CONTENT_KB_ID: !Ref ContentKnowledgeBase
+          CONTENT_KB_ID: !Ref ContentKB
       KmsKeyArn: !GetAtt EncryptionKey.Arn
       Policies: 
         - Version: '2012-10-17'
@@ -1420,7 +1247,7 @@ Resources:
             - Effect: Allow
               Action:
                 - bedrock:Retrieve
-              Resource: !GetAtt ContentKnowledgeBase.KnowledgeBaseArn
+              Resource: !GetAtt ContentKB.KnowledgeBaseArn
       Tags:
         LambdaPowertools: python
 
@@ -1482,8 +1309,8 @@ Resources:
             Action: 
               - bedrock:Retrieve
             Resource: 
-              - !GetAtt QuestionKnowledgeBase.KnowledgeBaseArn
-              - !GetAtt ContentKnowledgeBase.KnowledgeBaseArn
+              - !GetAtt QuestionKB.KnowledgeBaseArn
+              - !GetAtt ContentKB.KnowledgeBaseArn
           - Effect: Allow
             Action: lambda:InvokeFunction
             Resource: !GetAtt BuildContentKBResponse.Arn
@@ -1915,8 +1742,8 @@ Resources:
       Environment:
         Variables:
           POWERTOOLS_SERVICE_NAME: ProcessQuestions
-          QUESTIONS_KB_ID:  !Ref QuestionKnowledgeBase
-          QUESTIONS_KB_DS_ID: !GetAtt QuestionKnowledgeBaseDataSource.DataSourceId
+          QUESTIONS_KB_ID:  !Ref QuestionKB
+          QUESTIONS_KB_DS_ID: !GetAtt QuestionKBDataSource.DataSourceId
           CRAWLER_NAME: !Ref QuestionCrawler
       KmsKeyArn: !GetAtt EncryptionKey.Arn
       Policies:
@@ -1924,7 +1751,7 @@ Resources:
           Statement:
             - Effect: Allow
               Action: bedrock:StartIngestionJob
-              Resource: !GetAtt QuestionKnowledgeBase.KnowledgeBaseArn
+              Resource: !GetAtt QuestionKB.KnowledgeBaseArn
             - Effect: Allow
               Action: glue:StartCrawler
               Resource: !Sub arn:${AWS::Partition}:glue:${AWS::Region}:${AWS::AccountId}:crawler/${QuestionCrawler}
@@ -2110,15 +1937,15 @@ Resources:
       Environment:
         Variables:
           POWERTOOLS_SERVICE_NAME: ProcessPublications
-          CONTENT_KB_ID:  !Ref ContentKnowledgeBase
-          CONTENT_KB_PUBLICATION_DS_ID: !GetAtt ContentPublicationKnowledgeBaseDataSource.DataSourceId
+          CONTENT_KB_ID:  !Ref ContentKB
+          CONTENT_KB_PUBLICATION_DS_ID: !GetAtt ContentPublicationKBDataSource.DataSourceId
       KmsKeyArn: !GetAtt EncryptionKey.Arn
       Policies:
         - Version: '2012-10-17' 
           Statement:
             - Effect: Allow
               Action: bedrock:StartIngestionJob
-              Resource: !GetAtt ContentKnowledgeBase.KnowledgeBaseArn
+              Resource: !GetAtt ContentKB.KnowledgeBaseArn
       Tags:
         LambdaPowertools: python
 
@@ -2323,15 +2150,15 @@ Outputs:
 
   ContentKnowledgeBaseId:
     Description: Content Knowledge Base ID
-    Value: !Ref ContentKnowledgeBase
+    Value: !Ref ContentKB
     
   QuestionKnowledgeBaseId:
     Description: Question Knowledge Base ID
-    Value: !Ref QuestionKnowledgeBase
+    Value: !Ref QuestionKB
 
   ContentPublicationKnowledgeBaseDataSourceId:
     Description: ContentPublicationKnowledgeBaseDataSource ID
-    Value: !GetAtt ContentPublicationKnowledgeBaseDataSource.DataSourceId
+    Value: !GetAtt ContentPublicationKBDataSource.DataSourceId
     
   LogBucketName:
     Description: Log Bucket S3 bucket name
@@ -2347,7 +2174,7 @@ Outputs:
     
   QuestionKnowledgeBaseDataSourceId:
     Description: QuestionKnowledgeBaseDataSource ID
-    Value: !GetAtt QuestionKnowledgeBaseDataSource.DataSourceId
+    Value: !GetAtt QuestionKBDataSource.DataSourceId
     
   QuestionQueueName:
     Description: QuestionQueue SQS queue name
