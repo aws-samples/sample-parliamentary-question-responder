@@ -133,21 +133,18 @@ update-frontend-deploy-config :
 		${frontendConfigJson} > $${tempFile}
 	cp $${tempFile} ${frontendConfigJson}
 
-.PHONY : update-package-json
-update-package-json :
+.PHONY : update-proxy-env
+update-proxy-env :
 	cloudfrontURL=$$(aws cloudformation describe-stacks --stack-name ${stackName} --query 'Stacks[0].Outputs[?OutputKey==`SiteCloudFrontUrl`].OutputValue' --output text)
-	jq \
-		--arg proxyUrl $${cloudfrontURL} \
-		'.proxy = $$proxyUrl' \
-		${packageJson}.template > ${packageJson}
-		
+	echo "VITE_PROXY_URL=$${cloudfrontURL}" > frontend/.env
+
 .PHONY : run-frontend
-run-frontend: create-frontend-config update-package-json
+run-frontend: create-frontend-config update-proxy-env
 	cd frontend
-	npm start
+	npm run dev
 
 .PHONY : deploy-frontend
-deploy-frontend : create-frontend-config update-frontend-deploy-config update-package-json
+deploy-frontend : create-frontend-config update-frontend-deploy-config
 	cd frontend
 	npm run build
 
