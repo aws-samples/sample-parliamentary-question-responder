@@ -255,7 +255,7 @@ class ContentBedrockKnowledgeBase(BedrockKnowledgeBase):
             retrievalQuery={"text": question},
             knowledgeBaseId=self.kb_id,
             retrievalConfiguration={
-                "vectorSearchConfiguration": {"overrideSearchType": "HYBRID"}
+                "vectorSearchConfiguration": {"overrideSearchType": "SEMANTIC"}
             },
         )
 
