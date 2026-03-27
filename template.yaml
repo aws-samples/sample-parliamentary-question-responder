@@ -1201,20 +1201,20 @@ Resources:
                 SourceOutput: retrievalResults
                 TargetInput: document
 
-  SimilarQuestionsFlowVersion:
+  SimilarQuestionsFlowVersionV2:
     Type: AWS::Bedrock::FlowVersion
     Properties:
       FlowArn: !Ref SimilarQuestionsFlow
 
   SimilarQuestionsFlowAlias:
-    DependsOn: SimilarQuestionsFlowVersion
+    DependsOn: SimilarQuestionsFlowVersionV2
     Type: AWS::Bedrock::FlowAlias
     Properties:
       FlowArn: !GetAtt SimilarQuestionsFlow.Arn
       Name: !Sub ${AWS::StackName}-SimilarQuestionFlowAlias
       Description: !Sub ${AWS::StackName} SimilarQuestionFlowAlias
       RoutingConfiguration:
-        - FlowVersion: 1
+        - FlowVersion: !GetAtt SimilarQuestionsFlowVersionV2.Version
 
   BuildContentKBResponse:
     Metadata:
