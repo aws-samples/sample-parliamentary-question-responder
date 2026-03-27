@@ -78,7 +78,7 @@ Globals:
         AWS_LAMBDA_EXEC_WRAPPER: /opt/otel-instrument
     Tracing: Active
     Layers: 
-      - !Sub arn:aws:lambda:${AWS::Region}:017000801446:layer:AWSLambdaPowertoolsPythonV2-Arm64:76
+      - !Sub arn:aws:lambda:${AWS::Region}:017000801446:layer:AWSLambdaPowertoolsPythonV3-python313-arm64:30
       - !If 
         - ApplicationSignalsLayerVersion12
         - !Sub arn:aws:lambda:${AWS::Region}:615299751070:layer:AWSOpenTelemetryDistroPython:12
