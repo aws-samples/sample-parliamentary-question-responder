@@ -33,7 +33,7 @@ Parameters:
     Default: https://committees.parliament.uk/
   AgentFoundationalModel:
     Type: String
-    Default: us.anthropic.claude-sonnet-4-20250514-v1:0
+    Default: us.anthropic.claude-sonnet-4-6
   UpdateQuestions:
     Type: String
     Description: Should the newly answered questions be pulled from the Parliament API on a daily basis
@@ -1361,7 +1361,6 @@ Resources:
             PromptCreationMode: OVERRIDDEN
             InferenceConfiguration:
               Temperature: 0
-              TopP: 1
               TopK: 250
             PromptState: ENABLED
             BasePromptTemplate: >
