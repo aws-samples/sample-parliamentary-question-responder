@@ -1,5 +1,5 @@
 import { Box, Button, Container, Grid, Header, Link, SpaceBetween, TextContent } from "@cloudscape-design/components";
-import { NavigateFunction } from "react-router-dom";
+import { NavigateFunction } from "react-router";
 
 const LandingPage = (props: {button?: JSX.Element, navigate?: NavigateFunction}) => {
 
