@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 import { AppLayout } from '@cloudscape-design/components';
 import Navigation from './Navigation';
 import { useState } from 'react';
