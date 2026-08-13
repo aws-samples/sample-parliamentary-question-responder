@@ -256,7 +256,6 @@ pytestdebug.log
 .env
 .envrc
 tests/environment/environment.py
-frontend/package.json
 
 # Hugo generated files
 docs/public

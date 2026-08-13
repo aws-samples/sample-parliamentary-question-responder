@@ -9,7 +9,6 @@ stackName := $(shell echo ${stackName} | tr '[:upper:]' '[:lower:]')
 awsRegion ?= us-west-2
 AWS_DEFAULT_REGION := ${awsRegion}
 frontendConfigJson := ./frontend/src/config.json
-packageJson := ./frontend/package.json
 AgentFoundationalModel := us.anthropic.claude-sonnet-4-6
 UpdateQuestions ?= false
 DeployFrontend ?= true
@@ -32,7 +31,6 @@ init :
 	pip install --upgrade pip
 	pip install --upgrade -r requirements.txt
 
-	cp ${packageJson}.template ${packageJson}
 	cd frontend
 	npm install
 
